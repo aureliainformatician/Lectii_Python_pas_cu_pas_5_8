@@ -1,0 +1,269 @@
+
+Lecția 1_ Comanda print() – Exerciții interactive.html
+
+100%
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lecția 1: Comanda print() – Exerciții interactive</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7fb;--card:#fff;--tx:#1d2330;--mut:#5d6677;--bd:#dde1ea;--pri:#3b6ef5;--ok:#1a8f4c;--okbg:#e6f6ec;--er:#c62f3b;--erbg:#fdecee;--term:#12161f;--termtx:#d7f5dd;--code:#f0f2f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--termtx:#d7f5dd;--code:#232a3a}}
+:root[data-theme="dark"]{--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--termtx:#d7f5dd;--code:#232a3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 4px}
+.sub{color:var(--mut);margin:0 0 12px}
+.prog{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+.pt{font-size:.85rem;color:var(--mut);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:14px 0}
+.card.done{border-color:var(--ok)}
+.card h2{font-size:1.1rem;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.badge{font-size:.75rem;background:var(--code);border-radius:99px;padding:2px 10px;color:var(--mut)}
+.card.done .badge{background:var(--okbg);color:var(--ok)}
+.card p{margin:6px 0}
+code,pre,textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.lbl{font-size:.8rem;color:var(--mut);margin:10px 0 4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+pre{margin:0;padding:10px 12px;border-radius:8px;overflow-x:auto;font-size:.9rem;white-space:pre}
+pre.exp{background:var(--code)}
+pre.out{background:var(--term);color:var(--termtx);min-height:44px}
+pre.out.err{color:#ff9aa2}
+textarea{width:100%;min-height:90px;resize:vertical;padding:10px 12px;border-radius:8px;border:2px solid var(--bd);background:var(--code);color:var(--tx);font-size:.95rem;line-height:1.5;tab-size:4}
+textarea:focus{outline:none;border-color:var(--pri)}
+textarea[readonly]{border-color:var(--ok)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button{font:inherit;font-size:.92rem;padding:8px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+button.run{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+button:hover{filter:brightness(.95)}
+.fb{margin-top:10px;padding:10px 12px;border-radius:8px;display:none}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok)}
+.fb.no{display:block;background:var(--erbg);color:var(--er)}
+.hint{display:none;margin-top:8px;padding:8px 12px;border-left:4px solid var(--pri);background:var(--code);border-radius:4px;font-size:.92rem}
+.sol{display:none;margin-top:12px;border:1px dashed var(--ok);border-radius:8px;padding:10px 12px}
+.sol pre{background:var(--code)}
+.sol b{color:var(--ok)}
+</style>
+</head>
+<body>
+<main>
+<h1>🐍 Lecția 1: Comanda <code>print()</code></h1>
+<p class="sub">Scrie codul în fiecare căsuță și apasă <b>Rulează</b>. Soluția apare doar după ce rezolvi corect exercițiul. Dacă nu iese, poți încerca de câte ori vrei!</p>
+<div class="prog"><div class="bar"><i id="bar"></i></div><div class="pt" id="pt">Rezolvate: 0 / 7</div></div>
+<div id="list"></div>
+</main>
+<script>
+const EX=[
+{t:"Salut, Python!",d:"Scrie comanda care afișează exact textul de mai jos. Atenție la ghilimele, paranteze și semnele de punctuație!",
+ start:"# scrie codul aici\n",exp:"Salut, Python!",prints:1,hint:"Textul se scrie între ghilimele, iar totul între paranteze: print(\"...\")",
+ sol:'print("Salut, Python!")'},
+{t:"Corectează erorile",d:"Programul conține erori de sintaxă și de indentare. Corectează-l astfel încât să afișeze rezultatul de mai jos (ultimul rând trebuie să fie doar „Sfarsit”).",
+ start:'# acesta este un program care contine erori\n\nprinT("Bine ai venit!")\n print("O operatie aritmetica:")\nprint("Sfarsit)\n',
+ exp:"Bine ai venit!\nO operatie aritmetica:\nSfarsit",prints:3,hint:"Caută: o literă mare în numele comenzii, un spațiu în fața unui rând și o ghilimea lipsă.",
+ sol:'# acesta este un program care contine erori\n\nprint("Bine ai venit!")\nprint("O operatie aritmetica:")\nprint("Sfarsit")'},
+{t:"Calcul direct",d:"Afișează direct rezultatul calculului 25 + 15 * 2, fără ghilimele în jurul operației (nu scrie rezultatul de mână!).",
+ start:"",exp:"55",prints:1,calc:1,hint:"Operațiile matematice se scriu direct în paranteze, fără ghilimele: print(2 + 3)",
+ sol:"print(25 + 15 * 2)  # Afișează direct: 55"},
+{t:"Afișare pe mai multe rânduri",d:"Scrie un program cu trei comenzi print() succesive, care afișează un mesaj pe 3 rânduri. Poți folosi textul de mai jos sau propriul tău mesaj.",
+ start:"",exp:"Linia 1: Învăț Python!\nLinia 2: Este simplu și distractiv.\nLinia 3: Pas cu pas ajung departe.",prints:3,free:1,
+ hint:"Fiecare print() afișează un rând nou. Ai nevoie de exact trei.",
+ sol:'print("Linia 1: Învăț Python!")\nprint("Linia 2: Este simplu și distractiv.")\nprint("Linia 3: Pas cu pas ajung departe.")'},
+{t:"Mai multe valori într-un singur print()",d:"Afișează într-un singur print() textul \"Rezultatul este:\" urmat direct de calculul 100 - 45. Python pune automat un spațiu între valorile separate prin virgulă.",
+ start:"",exp:"Rezultatul este: 55",prints:1,calc:1,hint:"Separă textul și calculul prin virgulă: print(\"text\", 3 + 4)",
+ sol:'print("Rezultatul este:", 100 - 45)'},
+{t:"Artă ASCII: triunghi din steluțe",d:"Folosește mai multe instrucțiuni print() pentru a desena un triunghi din steluțe (*).",
+ start:"",exp:"*\n**\n***\n****",prints:4,hint:"Patru rânduri, deci patru print(): primul cu o stea, apoi două, trei și patru.",
+ sol:'print("*")\nprint("**")\nprint("***")\nprint("****")'},
+{t:"Găsește și corectează erorile!",d:"Codul de mai jos conține 3 erori. Găsește-le și corectează-le, astfel încât programul să afișeze rezultatul de mai jos.",
+ start:"print(\"Scăderea numărului 50 din 100 este: '\nprint 50 + 20\nPrint(\"Gata!\")\n",
+ exp:"Scăderea numărului 50 din 100 este:\n70\nGata!",prints:3,calc:1,hint:"Verifică: ghilimelele de la început și de sfârșit, parantezele de la print și litera mare din „Print”.",
+ sol:'print("Scăderea numărului 50 din 100 este:")\nprint(50 + 20)\nprint("Gata!")'}
+];
+
+/* ---------- mini interpretor pentru print() ---------- */
+class PyErr extends Error{constructor(k,m,l){super(m);this.kind=k;this.line=l}}
+class F{constructor(v){this.v=v}}
+const tn=x=>typeof x==='string'?'str':x instanceof F?'float':'int';
+const nv=x=>x instanceof F?x.v:x;
+function tokenize(line,ln){
+ const t=[];let i=0;
+ while(i<line.length){
+  const c=line[i];
+  if(/\s/.test(c)){i++;continue}
+  if(c==='#')break;
+  if(c==='"'||c==="'"){
+   let j=i+1,s='';
+   while(j<line.length&&line[j]!==c){
+    if(line[j]==='\\'&&j+1<line.length){const n=line[j+1];s+=n==='n'?'\n':n==='t'?'\t':n;j+=2}else s+=line[j++];
+   }
+   if(j>=line.length)throw new PyErr('SyntaxError','unterminated string literal (detected at line '+ln+')',ln);
+   t.push({k:'s',v:s});i=j+1;continue;
+  }
+  let m=line.slice(i).match(/^\d+(\.\d+)?/);
+  if(m){t.push({k:'n',v:Number(m[0]),f:!!m[1]});i+=m[0].length;continue}
+  m=line.slice(i).match(/^[\p{L}_][\p{L}\p{N}_]*/u);
+  if(m){t.push({k:'i',v:m[0]});i+=m[0].length;continue}
+  const two=line.substr(i,2);
+  if(two==='**'||two==='//'){t.push({k:'o',v:two});i+=2;continue}
+  if('+-*/%(),'.includes(c)){t.push({k:'o',v:c});i++;continue}
+  throw new PyErr('SyntaxError','invalid syntax',ln);
+ }
+ return t;
+}
+function parse(ts,ln){
+ let p=0;const bad=()=>new PyErr('SyntaxError','invalid syntax',ln);
+ const open=()=>new PyErr('SyntaxError',"'(' was never closed",ln);
+ const isO=v=>ts[p]&&ts[p].k==='o'&&ts[p].v===v;
+ function primary(){
+  const t=ts[p];if(!t)throw bad();
+  if(t.k==='s'){p++;return{t:'lit',v:t.v}}
+  if(t.k==='n'){p++;return{t:'lit',v:t.f?new F(t.v):t.v}}
+  if(t.k==='i'){
+   p++;
+   if(isO('(')){
+    p++;const args=[];
+    for(;;){
+     if(!ts[p])throw open();
+     if(isO(')')){p++;break}
+     args.push(expr());
+     if(!ts[p])throw open();
+     if(isO(',')){p++;continue}
+     if(isO(')')){p++;break}
+     throw bad();
+    }
+    return{t:'call',name:t.v,args};
+   }
+   return{t:'name',v:t.v};
+  }
+  if(isO('(')){p++;const e=expr();if(!ts[p])throw open();if(!isO(')'))throw bad();p++;return e}
+  throw bad();
+ }
+ function unary(){if(isO('-')){p++;return{t:'neg',e:unary()}}return power()}
+ function power(){const b=primary();if(isO('**')){p++;return{t:'bin',op:'**',l:b,r:unary()}}return b}
+ function term(){let l=unary();while(isO('*')||isO('/')||isO('//')||isO('%')){const op=ts[p++].v;l={t:'bin',op,l,r:unary()}}return l}
+ function expr(){let l=term();while(isO('+')||isO('-')){const op=ts[p++].v;l={t:'bin',op,l,r:term()}}return l}
+ if(ts[0].k==='i'&&ts[0].v==='print'&&ts[1]&&!(ts[1].k==='o'&&ts[1].v==='('))
+  throw new PyErr('SyntaxError',"Missing parentheses in call to 'print'. Did you mean print(...)?",ln);
+ const e=expr();
+ if(p<ts.length){if(isO(')'))throw new PyErr('SyntaxError',"unmatched ')'",ln);throw bad()}
+ return e;
+}
+function ev(n,ln,ctx){
+ switch(n.t){
+  case 'lit':return n.v;
+  case 'name':throw new PyErr('NameError',"name '"+n.v+"' is not defined",ln);
+  case 'neg':{const v=ev(n.e,ln,ctx);if(typeof v==='string')throw new PyErr('TypeError',"bad operand type for unary -: 'str'",ln);return v instanceof F?new F(-v.v):-v}
+  case 'call':{
+   if(n.name!=='print')throw new PyErr('NameError',"name '"+n.name+"' is not defined",ln);
+   const a=n.args.map(x=>ev(x,ln,ctx));
+   ctx.out.push(a.map(fmt).join(' '));ctx.prints++;return null;
+  }
+  case 'bin':{
+   const l=ev(n.l,ln,ctx),r=ev(n.r,ln,ctx),ls=typeof l==='string',rs=typeof r==='string';
+   if(ls||rs){
+    if(n.op==='+'){
+     if(ls&&rs)return l+r;
+     if(ls)throw new PyErr('TypeError','can only concatenate str (not "'+tn(r)+'") to str',ln);
+    }
+    if(n.op==='*'&&(ls!==rs)){const o=ls?r:l;if(!(o instanceof F)&&typeof o==='number')return (ls?l:r).repeat(Math.max(0,o))}
+    throw new PyErr('TypeError',"unsupported operand type(s) for "+n.op+": '"+tn(l)+"' and '"+tn(r)+"'",ln);
+   }
+   const a=nv(l),b=nv(r),fl=l instanceof F||r instanceof F;let v;
+   switch(n.op){
+    case '+':v=a+b;break;case '-':v=a-b;break;case '*':v=a*b;break;
+    case '**':v=Math.pow(a,b);break;
+    case '/':if(b===0)throw new PyErr('ZeroDivisionError','division by zero',ln);return new F(a/b);
+    case '//':if(b===0)throw new PyErr('ZeroDivisionError','integer division or modulo by zero',ln);v=Math.floor(a/b);break;
+    case '%':if(b===0)throw new PyErr('ZeroDivisionError','integer modulo by zero',ln);v=((a%b)+b)%b;break;
+   }
+   return fl?new F(v):v;
+  }
+ }
+}
+function fmt(x){return typeof x==='string'?x:x===null?'None':x instanceof F?(Number.isInteger(x.v)?x.v.toFixed(1):String(x.v)):String(x)}
+function runPy(src){
+ src=src.replace(/[“”]/g,'"').replace(/[‘’]/g,"'");
+ const lines=src.split('\n'),prog=[];
+ try{
+  lines.forEach((raw,i)=>{
+   const ln=i+1,s=raw.replace(/\s+$/,'');
+   if(!s.trim()||s.trim().startsWith('#'))return;
+   if(/^\s/.test(s))throw new PyErr('IndentationError','unexpected indent',ln);
+   prog.push({ln,ast:parse(tokenize(s,ln),ln)});
+  });
+  const ctx={out:[],prints:0};
+  try{prog.forEach(x=>ev(x.ast,x.ln,ctx))}
+  catch(e){if(e instanceof PyErr){e.partial=ctx.out.join('\n');e.runtime=true}throw e}
+  return{out:ctx.out.join('\n'),prints:ctx.prints};
+ }catch(e){
+  if(!(e instanceof PyErr))throw e;
+  const l=lines[e.line-1]||'';
+  let msg=e.runtime?'Traceback (most recent call last):\n  File "main.py", line '+e.line+', in <module>\n':'  File "main.py", line '+e.line+'\n    '+l.trim()+'\n';
+  msg+=e.kind+': '+e.message;
+  return{err:msg,partial:e.partial||''};
+ }
+}
+
+/* ---------- interfața ---------- */
+const norm=s=>s.split('\n').map(x=>x.replace(/\s+$/,'')).join('\n').trim();
+const stripStr=c=>c.replace(/(["'])(?:\\.|(?!\1).)*\1/g,'').replace(/#.*$/gm,'');
+const list=document.getElementById('list');
+const solved=new Set();
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function upd(){
+ document.getElementById('bar').style.width=(solved.size/EX.length*100)+'%';
+ document.getElementById('pt').textContent='Rezolvate: '+solved.size+' / '+EX.length+(solved.size===EX.length?' 🎉 Felicitări, ai terminat Lecția 1!':'');
+}
+EX.forEach((x,i)=>{
+ const card=el('section','card'),h=el('h2');
+ h.append('Exercițiul '+(i+1)+': '+x.t);const bd=el('span','badge','de rezolvat');h.append(bd);
+ card.append(h,el('p',null,x.d));
+ card.append(el('div','lbl','Rezultat așteptat'),el('pre','exp',x.exp));
+ card.append(el('div','lbl','Codul tău'));
+ const ta=el('textarea');ta.value=x.start;ta.rows=Math.max(4,x.start.split('\n').length+1);
+ ta.spellcheck=false;ta.setAttribute('autocapitalize','off');ta.setAttribute('autocorrect','off');ta.setAttribute('autocomplete','off');
+ ta.setAttribute('aria-label','Cod Python pentru exercițiul '+(i+1));
+ card.append(ta);
+ const row=el('div','row');
+ const run=el('button','run','▶ Rulează'),again=el('button',null,'✏️ Mai încerc'),rst=el('button',null,'↺ Resetează codul'),hb=el('button',null,'💡 Indiciu');
+ again.style.display='none';
+ row.append(run,again,rst,hb);card.append(row);
+ const hint=el('div','hint','💡 '+x.hint);card.append(hint);
+ card.append(el('div','lbl','Ieșire (ce afișează programul)'));
+ const out=el('pre','out','');card.append(out);
+ const fb=el('div','fb');card.append(fb);
+ const sol=el('div','sol');sol.append(el('b',null,'✅ Varianta corectă'),el('pre',null,x.sol));card.append(sol);
+ hb.onclick=()=>{hint.style.display=hint.style.display==='block'?'none':'block'};
+ rst.onclick=()=>{ta.value=x.start;ta.readOnly=false;out.textContent='';out.className='out';fb.className='fb';sol.style.display='none';again.style.display='none';run.style.display='';ta.focus()};
+ again.onclick=()=>{fb.className='fb';again.style.display='none';ta.focus()};
+ run.onclick=()=>{
+  const code=ta.value,r=runPy(code);
+  const bad=(m,showAgain=true)=>{fb.className='fb no';fb.textContent=m;if(showAgain)again.style.display=''};
+  if(r.err){
+   out.className='out err';out.textContent=(r.partial?r.partial+'\n':'')+r.err;
+   bad('❌ Programul are o eroare. Citește mesajul de mai sus (îți spune pe ce rând e problema) și încearcă din nou.');return;
+  }
+  out.className='out';out.textContent=r.out||'(programul nu a afișat nimic)';
+  const o=norm(r.out);let ok;
+  if(x.free){const ls=o.split('\n').filter(Boolean);ok=ls.length===3&&r.prints===3&&o.split('\n').length===3}
+  else ok=o===norm(x.exp);
+  if(!ok){bad('❌ Încă nu este rezultatul așteptat. Compară ieșirea cu „Rezultat așteptat” și încearcă din nou!');return}
+  if(x.prints&&r.prints!==x.prints){bad('⚠️ Ieșirea arată bine, dar exercițiul cere exact '+x.prints+' comand'+(x.prints===1?'ă':'e')+' print(). Încearcă din nou!');return}
+  if(x.calc&&!/\d\s*[-+*\/]\s*\d/.test(stripStr(code))){bad('⚠️ Rezultatul e corect, dar trebuie să fie calculat de Python (scrie operația, nu rezultatul gata făcut)!');return}
+  fb.className='fb ok';fb.textContent='🎉 Corect! Bravo! Mai jos vezi varianta de referință.';
+  sol.style.display='block';ta.readOnly=true;again.style.display='none';run.style.display='none';
+  card.classList.add('done');bd.textContent='rezolvat ✓';solved.add(i);upd();
+ };
+ list.append(card);
+});
+upd();
+</script>
+</body>
+</html>
+Displaying Lecția 1_ Comanda print() – Exerciții interactive.html.

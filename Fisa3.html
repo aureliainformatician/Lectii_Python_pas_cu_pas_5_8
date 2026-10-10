@@ -1,0 +1,392 @@
+
+Lecția 3_ Prioritate și asociativitate – clasa a V-a.html
+100 %
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lecția 3: Prioritate și asociativitate – clasa a V-a</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7fb;--card:#fff;--tx:#1d2330;--mut:#5d6677;--bd:#dde1ea;--pri:#3b6ef5;--ok:#1a8f4c;--okbg:#e6f6ec;--er:#c62f3b;--erbg:#fdecee;--term:#12161f;--termtx:#d7f5dd;--code:#f0f2f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--code:#232a3a}}
+:root[data-theme="dark"]{--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--code:#232a3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 4px}
+.sub{color:var(--mut);margin:0 0 12px}
+.recap,.pdfbox{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--pri);border-radius:10px;padding:10px 16px;font-size:.94rem;margin:10px 0}
+.recap ul{margin:4px 0;padding-left:20px}
+.pdfbox{border-left-color:var(--ok)}
+.pdfbox input{font:inherit;padding:8px 10px;border-radius:8px;border:2px solid var(--bd);background:var(--code);color:var(--tx);width:100%;margin:6px 0}
+.prog{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+.pt{font-size:.85rem;color:var(--mut);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0}
+.card.done{border-color:var(--ok)}
+.card h2{font-size:1.05rem;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:.75rem;background:var(--code);border-radius:99px;padding:2px 10px;color:var(--mut)}
+.card.done .badge{background:var(--okbg);color:var(--ok)}
+.card p{margin:6px 0}
+code,pre,textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.lbl{font-size:.78rem;color:var(--mut);margin:10px 0 4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+pre{margin:0;padding:10px 12px;border-radius:8px;overflow-x:auto;font-size:.9rem;white-space:pre}
+pre.exp,pre.cd{background:var(--code)}
+pre.out{background:var(--term);color:var(--termtx);min-height:44px}
+pre.out.err{color:#ff9aa2}
+textarea{width:100%;resize:vertical;padding:10px 12px;border-radius:8px;border:2px solid var(--bd);background:var(--code);color:var(--tx);font-size:.95rem;line-height:1.5}
+textarea:focus,.pdfbox input:focus{outline:none;border-color:var(--pri)}
+textarea[readonly]{border-color:var(--ok)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button{font:inherit;font-size:.92rem;padding:8px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+button.run{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+button.opt{font-weight:600;min-width:56px}
+button:disabled{opacity:.6;cursor:default}
+.fb{margin-top:10px;padding:10px 12px;border-radius:8px;display:none;white-space:pre-wrap}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok)}
+.fb.no{display:block;background:var(--erbg);color:var(--er)}
+.hint{display:none;margin-top:8px;padding:8px 12px;border-left:4px solid var(--pri);background:var(--code);border-radius:4px;font-size:.92rem}
+.sol{display:none;margin-top:12px;border:1px dashed var(--ok);border-radius:8px;padding:10px 12px}
+.sol pre{background:var(--code);margin-top:6px}
+.sol b{color:var(--ok)}
+.sol p{font-size:.92rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>🐍 Lecția 3: Prioritate și asociativitate <small style="font-weight:400">· clasa a V-a</small></h1>
+<p class="sub">Exerciții cu răsaduri și straturi, ca în lecția de Educație tehnologică. Rezolvă-le, apoi descarcă răspunsurile tale în PDF și încarcă-l ca temă.</p>
+<div class="recap"><b>Ce trebuie să reții</b><ul>
+<li>Python calculează <b>ca la matematică</b>: întâi parantezele, apoi puterile <code>**</code>, apoi <code>* / // %</code>, apoi <code>+ -</code>.</li>
+<li>Dacă operațiile au aceeași prioritate, mergem <b>de la stânga la dreapta</b>. Ex.: <code>7 * 2 // 4</code> → 14 // 4 → <code>3</code>.</li>
+<li><b>Excepție:</b> puterea <code>**</code> se calculează de la dreapta la stânga. <code>2 ** 3 ** 2</code> = <code>2 ** (3 ** 2)</code> = 2<sup>9</sup> = <code>512</code>, dar <code>(2 ** 3) ** 2</code> = 8<sup>2</sup> = <code>64</code>.</li></ul></div>
+<div class="pdfbox"><b>📄 Tema ta în PDF</b><br>
+<input id="nm" placeholder="Numele și clasa ta (ex.: Popescu Ana, a V-a B)" autocomplete="name" maxlength="60">
+<button class="run" id="dl">⬇ Descarcă răspunsurile în PDF</button>
+<div id="dlmsg" class="pt"></div></div>
+<div class="prog"><div class="bar"><i id="bar"></i></div><div class="pt" id="pt"></div></div>
+<div id="list"></div>
+</main>
+<script>
+const EX=[
+{mc:1,t:"Înmulțirea înaintea adunării",d:"Ana are 2 răsaduri de roșii, apoi plantează 3 rânduri a câte 4 răsaduri. Cât afișează print(2 + 3 * 4)?",opts:["14","20","24","9"],ans:0,hint:"Înmulțirea se face înaintea adunării, ca la matematică.",sol:"Întâi 3 * 4 = 12, apoi 2 + 12 = 14."},
+{mc:1,t:"Parantezele schimbă ordinea",d:"Cât afișează print((2 + 3) * 4)?",opts:["14","20","24","9"],ans:1,hint:"Paranteza se calculează prima.",sol:"Întâi (2 + 3) = 5, apoi 5 * 4 = 20."},
+{t:"Răsadurile din grădină",d:"Un strat are 6 rânduri a câte 8 răsaduri și mai ai 5 răsaduri separat. Afișează cu Python câte răsaduri sunt în total (scrie operația, nu rezultatul!).",
+ tests:[[[],"53"]],mode:"last",must:/^(?=.*\*)(?=.*\+)/,hint:"print(6 * 8 + 5)",sol:"print(6 * 8 + 5)  # 53"},
+{mc:1,t:"Scăderea în lanț",d:"Dintr-un sac cu 20 kg de semințe iei 4 kg, apoi încă 3 kg. Cât afișează print(20 - 4 - 3)?",opts:["13","19","11","21"],ans:0,hint:"Același semn, deci mergem de la stânga la dreapta.",sol:"(20 - 4) - 3 = 16 - 3 = 13."},
+{mc:1,t:"Împărțire și înmulțire",d:"Cât afișează print(24 // 4 * 3)? (// este împărțirea întreagă)",opts:["18","2","8","6"],ans:0,hint:"// și * au aceeași prioritate: de la stânga la dreapta.",sol:"Întâi 24 // 4 = 6, apoi 6 * 3 = 18."},
+{t:"Pune parantezele",d:"Ana plantează 2 răsaduri de roșii și 3 de ardei în fiecare din 4 straturi. Codul de mai jos afișează 14. Adaugă paranteze ca să se afișeze 20.",start:"print(2 + 3 * 4)\n",
+ tests:[[[],"20"]],mode:"last",must:/\(2\+3\)\*4/,hint:"Pune 2 + 3 între paranteze.",sol:"print((2 + 3) * 4)  # 20"},
+{mc:1,t:"Puterea în lanț",d:"Amintire: 2 ** 3 înseamnă 2 la puterea 3 = 8. Cât afișează print(2 ** 3 ** 2)?",opts:["64","512","36","18"],ans:1,hint:"La ** se începe din dreapta: întâi 3 ** 2.",sol:"** se calculează de la dreapta la stânga: 3 ** 2 = 9, apoi 2 ** 9 = 512."},
+{mc:1,t:"Puterea cu paranteze",d:"Cât afișează print((2 ** 3) ** 2)?",opts:["64","512","32","12"],ans:0,hint:"Paranteza se calculează prima.",sol:"(2 ** 3) = 8, apoi 8 ** 2 = 64."},
+{t:"Scrie o putere în lanț",d:"Afișează cu print() valoarea expresiei 2 ** 3 ** 2 (scrie expresia, nu rezultatul!).",
+ tests:[[[],"512"]],mode:"last",must:/2\*\*3\*\*2/,hint:"print(2 ** 3 ** 2)",sol:"print(2 ** 3 ** 2)  # 512"},
+{t:"Câte răsaduri sunt în total?",d:"Cere numărul de rânduri n și afișează câte răsaduri sunt în total, dacă fiecare rând are 8 răsaduri și mai ai 5 răsaduri separat (5 + n * 8).",
+ tests:[[["3"],"29"],[["10"],"85"]],mode:"last",must:/int\(/,ex:"Introduci 3 → apare 29",
+ hint:"Pune int( ... ) în jurul lui input(...).",sol:'print("Total răsaduri:", 5 + int(input("Câte rânduri? ")) * 8)'}
+];
+
+/* ---------- mini interpretor ---------- */
+class PyErr extends Error{constructor(k,m,l){super(m);this.kind=k;this.line=l}}
+class F{constructor(v){this.v=v}}
+const tn=x=>typeof x==='string'?'str':x instanceof F?'float':'int';
+const nv=x=>x instanceof F?x.v:x;
+function tokenize(line,ln){
+ const t=[];let i=0;
+ while(i<line.length){
+  const c=line[i];
+  if(/\s/.test(c)){i++;continue}
+  if(c==='#')break;
+  if(c==='"'||c==="'"){
+   let j=i+1,s='';
+   while(j<line.length&&line[j]!==c){if(line[j]==='\\'&&j+1<line.length){const n=line[j+1];s+=n==='n'?'\n':n==='t'?'\t':n;j+=2}else s+=line[j++]}
+   if(j>=line.length)throw new PyErr('SyntaxError','unterminated string literal (detected at line '+ln+')',ln);
+   t.push({k:'s',v:s});i=j+1;continue;
+  }
+  let m=line.slice(i).match(/^\d+(\.\d+)?/);
+  if(m){t.push({k:'n',v:Number(m[0]),f:!!m[1]});i+=m[0].length;continue}
+  m=line.slice(i).match(/^[\p{L}_][\p{L}\p{N}_]*/u);
+  if(m){t.push({k:'i',v:m[0]});i+=m[0].length;continue}
+  const two=line.substr(i,2);
+  if(two==='**'||two==='//'){t.push({k:'o',v:two});i+=2;continue}
+  if('+-*/%(),'.includes(c)){t.push({k:'o',v:c});i++;continue}
+  throw new PyErr('SyntaxError','invalid syntax',ln);
+ }
+ return t;
+}
+function parse(ts,ln){
+ let p=0;const bad=()=>new PyErr('SyntaxError','invalid syntax',ln);
+ const open=()=>new PyErr('SyntaxError',"'(' was never closed",ln);
+ const isO=v=>ts[p]&&ts[p].k==='o'&&ts[p].v===v;
+ function primary(){
+  const t=ts[p];if(!t)throw bad();
+  if(t.k==='s'){p++;return{t:'lit',v:t.v}}
+  if(t.k==='n'){p++;return{t:'lit',v:t.f?new F(t.v):t.v}}
+  if(t.k==='i'){
+   p++;
+   if(isO('(')){
+    p++;const args=[];
+    for(;;){
+     if(!ts[p])throw open();
+     if(isO(')')){p++;break}
+     args.push(expr());
+     if(!ts[p])throw open();
+     if(isO(',')){p++;continue}
+     if(isO(')')){p++;break}
+     throw new PyErr('SyntaxError','invalid syntax. Perhaps you forgot a comma?',ln);
+    }
+    return{t:'call',name:t.v,args};
+   }
+   return{t:'name',v:t.v};
+  }
+  if(isO('(')){p++;const e=expr();if(!ts[p])throw open();if(!isO(')'))throw bad();p++;return e}
+  throw bad();
+ }
+ function unary(){if(isO('-')){p++;return{t:'neg',e:unary()}}return power()}
+ function power(){const b=primary();if(isO('**')){p++;return{t:'bin',op:'**',l:b,r:unary()}}return b}
+ function term(){let l=unary();while(isO('*')||isO('/')||isO('//')||isO('%')){const op=ts[p++].v;l={t:'bin',op,l,r:unary()}}return l}
+ function expr(){let l=term();while(isO('+')||isO('-')){const op=ts[p++].v;l={t:'bin',op,l,r:term()}}return l}
+ if(ts[0].k==='i'&&ts[0].v==='print'&&ts[1]&&!(ts[1].k==='o'&&ts[1].v==='('))
+  throw new PyErr('SyntaxError',"Missing parentheses in call to 'print'. Did you mean print(...)?",ln);
+ const e=expr();
+ if(p<ts.length){if(isO(')'))throw new PyErr('SyntaxError',"unmatched ')'",ln);throw bad()}
+ return e;
+}
+function fmt(x){return typeof x==='string'?x:x===null?'None':x instanceof F?(Number.isInteger(x.v)?x.v.toFixed(1):String(x.v)):String(x)}
+function toInt(v,ln){
+ if(typeof v==='string'){if(!/^\s*[+-]?\d+\s*$/.test(v))throw new PyErr('ValueError',"invalid literal for int() with base 10: '"+v+"'",ln);return parseInt(v,10)}
+ return v instanceof F?Math.trunc(v.v):v;
+}
+function ev(n,ln,c){
+ switch(n.t){
+  case 'lit':return n.v;
+  case 'name':throw new PyErr('NameError',"name '"+n.v+"' is not defined",ln);
+  case 'neg':{const v=ev(n.e,ln,c);if(typeof v==='string')throw new PyErr('TypeError',"bad operand type for unary -: 'str'",ln);return v instanceof F?new F(-v.v):-v}
+  case 'call':{
+   if(!['print','input','int','str','float'].includes(n.name))throw new PyErr('NameError',"name '"+n.name+"' is not defined",ln);
+   const a=n.args.map(x=>ev(x,ln,c));
+   if(n.name==='print'){const s=a.map(fmt).join(' ');c.out.push(s);c.term+=s+'\n';c.prints++;return null}
+   if(n.name==='input'){
+    const pr=a.length?fmt(a[0]):'';
+    if(!c.inp.length)throw new PyErr('EOFError','EOF when reading a line',ln);
+    const v=c.inp.shift();c.term+=pr+v+'\n';return v;
+   }
+   if(a.length!==1)throw new PyErr('TypeError',n.name+'() takes exactly one argument',ln);
+   if(n.name==='int')return toInt(a[0],ln);
+   if(n.name==='str')return fmt(a[0]);
+   const f=typeof a[0]==='string'?Number(a[0]):nv(a[0]);
+   if(typeof a[0]==='string'&&(isNaN(f)||!a[0].trim()))throw new PyErr('ValueError',"could not convert string to float: '"+a[0]+"'",ln);
+   return new F(f);
+  }
+  case 'bin':{
+   const l=ev(n.l,ln,c),r=ev(n.r,ln,c),ls=typeof l==='string',rs=typeof r==='string';
+   if(ls||rs){
+    if(n.op==='+'){if(ls&&rs)return l+r;if(ls)throw new PyErr('TypeError','can only concatenate str (not "'+tn(r)+'") to str',ln)}
+    if(n.op==='*'){
+     if(ls&&rs)throw new PyErr('TypeError',"can't multiply sequence by non-int of type 'str'",ln);
+     const o=ls?r:l;
+     if(o instanceof F)throw new PyErr('TypeError',"can't multiply sequence by non-int of type 'float'",ln);
+     return (ls?l:r).repeat(Math.max(0,o));
+    }
+    throw new PyErr('TypeError',"unsupported operand type(s) for "+n.op+": '"+tn(l)+"' and '"+tn(r)+"'",ln);
+   }
+   const a=nv(l),b=nv(r),fl=l instanceof F||r instanceof F;let v;
+   switch(n.op){
+    case '+':v=a+b;break;case '-':v=a-b;break;case '*':v=a*b;break;
+    case '**':if(!fl&&b<0)return new F(Math.pow(a,b));v=Math.pow(a,b);break;
+    case '/':if(b===0)throw new PyErr('ZeroDivisionError','division by zero',ln);return new F(a/b);
+    case '//':if(b===0)throw new PyErr('ZeroDivisionError','integer division or modulo by zero',ln);v=Math.floor(a/b);break;
+    case '%':if(b===0)throw new PyErr('ZeroDivisionError','integer modulo by zero',ln);v=((a%b)+b)%b;break;
+   }
+   return fl?new F(v):v;
+  }
+ }
+}
+function runPy(src,inputs){
+ src=src.replace(/[“”]/g,'"').replace(/[‘’]/g,"'");
+ const lines=src.split('\n'),prog=[],c={out:[],term:'',prints:0,inp:[...inputs]};
+ try{
+  lines.forEach((raw,i)=>{
+   const ln=i+1,s=raw.replace(/\s+$/,'');
+   if(!s.trim()||s.trim().startsWith('#'))return;
+   if(/^\s/.test(s))throw new PyErr('IndentationError','unexpected indent',ln);
+   prog.push({ln,ast:parse(tokenize(s,ln),ln)});
+  });
+  try{prog.forEach(x=>ev(x.ast,x.ln,c))}catch(e){if(e instanceof PyErr)e.runtime=true;throw e}
+  return{out:c.out.join('\n'),term:c.term,prints:c.prints};
+ }catch(e){
+  if(!(e instanceof PyErr))throw e;
+  const m=e.runtime?'Traceback (most recent call last):\n  File "main.py", line '+e.line+', in <module>\n':'  File "main.py", line '+e.line+'\n    '+(lines[e.line-1]||'').trim()+'\n';
+  return{err:m+e.kind+': '+e.message,partial:c.term,eof:e.kind==='EOFError'};
+ }
+}
+
+/* ---------- starea elevului + interfață ---------- */
+const S=EX.map(()=>({tries:0,done:false,code:'',inp:'',term:'',picks:[]}));
+const norm=s=>s.split('\n').map(x=>x.replace(/\s+$/,'')).join('\n').trim();
+const list=document.getElementById('list');
+const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+const nSolved=()=>S.filter(s=>s.done).length;
+function upd(){
+ document.getElementById('bar').style.width=(nSolved()/EX.length*100)+'%';
+ document.getElementById('pt').textContent='Rezolvate: '+nSolved()+' / '+EX.length+(nSolved()===EX.length?' 🎉 Felicitări! Acum descarcă PDF-ul.':'');
+}
+const show=v=>v===''?'(Enter)':v;
+function grade(code,x){
+ for(const [inp,o] of x.tests){
+  const r=runPy(code,inp),pre=inp.length?'Pentru intrările: '+inp.map(show).join(' , ')+'\n':'';
+  if(r.err)return pre+'programul a dat eroare ('+r.err.split('\n').pop()+').';
+  const got=norm(r.out);
+  if(!(r.prints>0&&got.split(/\s+/).pop()===o))return pre+'ar trebui să se afișeze (la final): '+o+'\nprogramul a afișat: '+(got||'(nimic)');
+ }
+ return null;
+}
+EX.forEach((x,i)=>{
+ const card=el('section','card'),h=el('h2'),bd=el('span','badge','de rezolvat');
+ h.append('Exercițiul '+(i+1)+': '+x.t,bd);card.append(h,el('p',null,x.d));
+ const fb=el('div','fb'),hint=el('div','hint','💡 '+x.hint),sol=el('div','sol');
+ sol.append(el('b',null,'✅ '+(x.mc?'Explicația':'Varianta corectă')));
+ if(x.mc)sol.append(el('p',null,x.sol));else sol.append(el('pre','cd',x.sol));
+ const win=m=>{fb.className='fb ok';fb.textContent=m;sol.style.display='block';card.classList.add('done');bd.textContent='rezolvat ✓';S[i].done=true;upd()};
+ const hb=el('button',null,'💡 Indiciu');hb.onclick=()=>{hint.style.display=hint.style.display==='block'?'none':'block'};
+ if(x.mc){
+  const row=el('div','row'),btns=[];
+  x.opts.forEach((o,k)=>{
+   const b=el('button','opt',o);btns.push(b);
+   b.onclick=()=>{
+    S[i].tries++;S[i].picks.push(o);
+    if(k===x.ans){btns.forEach(z=>z.disabled=true);b.style.borderColor='var(--ok)';win('🎉 Corect! Bravo!')}
+    else{fb.className='fb no';fb.textContent='❌ Nu chiar. Gândește-te la prioritate și asociativitate și mai încearcă!'}
+   };
+   row.append(b);
+  });
+  row.append(hb);card.append(row,hint,fb,sol);
+ }else{
+  const ex=x.ex||('Rezultat așteptat: '+x.tests[0][1]);
+  card.append(el('div','lbl','Exemplu'),el('pre','exp',ex),el('div','lbl','Codul tău'));
+  const start=x.start||'# scrie codul aici\n';
+  const ta=el('textarea');ta.value=start;ta.rows=Math.max(3,start.split('\n').length+1);
+  ta.spellcheck=false;['autocapitalize','autocorrect','autocomplete'].forEach(a=>ta.setAttribute(a,'off'));
+  ta.setAttribute('aria-label','Cod exercițiul '+(i+1));card.append(ta);
+  const hasIn=x.tests[0][0].length>0,ti=el('textarea');
+  if(hasIn){card.append(el('div','lbl','Intrări (câte un rând pentru fiecare input())'));ti.rows=1;ti.value=x.tests[0][0].join('\n');ti.spellcheck=false;ti.setAttribute('autocorrect','off');ti.setAttribute('aria-label','Intrări exercițiul '+(i+1));card.append(ti)}
+  const row=el('div','row'),run=el('button','run','▶ Rulează'),again=el('button',null,'✏️ Mai încerc'),rst=el('button',null,'↺ Resetează codul');
+  again.style.display='none';row.append(run,again,rst,hb);card.append(row,hint,el('div','lbl','Ieșire (terminal)'));
+  const out=el('pre','out','');card.append(out,fb,sol);
+  const bad=m=>{fb.className='fb no';fb.textContent=m;again.style.display=''};
+  rst.onclick=()=>{ta.value=start;if(hasIn)ti.value=x.tests[0][0].join('\n');ta.readOnly=false;out.textContent='';out.className='out';fb.className='fb';sol.style.display='none';again.style.display='none';run.style.display='';ta.focus()};
+  again.onclick=()=>{fb.className='fb';again.style.display='none';ta.focus()};
+  run.onclick=()=>{
+   const code=ta.value,inp=hasIn?ti.value.split('\n'):[],r=runPy(code,inp);
+   Object.assign(S[i],{tries:S[i].tries+1,code,inp:hasIn?inp.join(' ; '):''});
+   if(r.err){
+    out.className='out err';out.textContent=(r.partial||'')+r.err;S[i].term=out.textContent;
+    bad(r.eof?'❌ Programul cere mai multe date decât ai pus la „Intrări”.':'❌ Programul are o eroare. Citește mesajul din terminal și încearcă din nou.');return;
+   }
+   out.className='out';out.textContent=r.term.trimEnd()||'(programul nu a afișat nimic)';S[i].term=out.textContent;
+   const g=grade(code,x);
+   if(g){bad('❌ Încă nu e corect.\n'+g);return}
+   if(x.must&&!x.must.test(code.replace(/\s+/g,''))){bad('⚠️ Rezultatul e bun, dar trebuie să folosești expresia cerută în exercițiu (cu parantezele/operatorii indicați). Încearcă din nou!');return}
+   win('🎉 Corect! Programul a trecut toate testele. Mai jos vezi varianta de referință.');
+   ta.readOnly=true;again.style.display='none';run.style.display='none';
+  };
+ }
+ list.append(card);
+});
+upd();
+
+/* ---------- export PDF (pagini desenate pe canvas -> JPEG -> PDF) ---------- */
+function buildReport(name){
+ const W=1240,H=1754,M=90,cv=[];let c,x,y;
+ const np=()=>{c=document.createElement('canvas');c.width=W;c.height=H;x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);y=M;cv.push(c)};
+ np();
+ const wrap=(t,f,mw)=>{
+  x.font=f;const o=[];
+  t.split('\n').forEach(par=>{
+   let line='';
+   par.split(/(\s+)/).forEach(w=>{
+    if(x.measureText(line+w).width>mw&&line.trim()){o.push(line.trimEnd());line=w.trimStart()}else line+=w;
+    while(x.measureText(line).width>mw){let k=line.length;while(k>1&&x.measureText(line.slice(0,k)).width>mw)k--;o.push(line.slice(0,k));line=line.slice(k)}
+   });
+   o.push(line.trimEnd());
+  });
+  return o;
+ };
+ const SANS='"Helvetica Neue",Arial,sans-serif',MONO='"Courier New",Consolas,monospace';
+ const text=(t,o={})=>{
+  const px=o.px||26,f=(o.b?'bold ':'')+px+'px '+(o.mono?MONO:SANS),lh=px*1.45,ind=o.ind||0;
+  wrap(t,f,W-2*M-ind).forEach(l=>{
+   if(y+lh>H-M)np();
+   if(o.bg){x.fillStyle=o.bg;x.fillRect(M+ind-8,y,W-2*M-ind+16,lh)}
+   x.font=f;x.fillStyle=o.col||'#111';x.fillText(l,M+ind,y+lh*0.74);y+=lh;
+  });
+  y+=o.gap||0;
+ };
+ text('Tema – Lecția 3 (clasa a V-a): Prioritate și asociativitate',{px:40,b:1,gap:10});
+ text('Elev: '+name,{px:30,b:1});
+ text('Data: '+new Date().toLocaleDateString('ro-RO')+'   |   Rezolvate corect: '+nSolved()+' din '+EX.length,{px:26,gap:24});
+ EX.forEach((e,i)=>{
+  const s=S[i];
+  if(y>H-M-300)np();
+  text('Exercițiul '+(i+1)+': '+e.t,{px:30,b:1});
+  text((s.done?'CORECT':(s.tries?'ÎN LUCRU (nerezolvat corect)':'NERĂSPUNS'))+'  –  încercări: '+s.tries,{col:s.done?'#1a8f4c':'#c62f3b',b:1});
+  text(e.d,{px:24,col:'#444'});
+  if(e.mc){
+   text('Răspunsuri încercate: '+(s.picks.length?s.picks.join(', '):'—'),{ind:20});
+  }else{
+   text('Cod trimis (ultima rulare):',{ind:20,px:24,b:1});
+   text(s.code?s.code.replace(/\s+$/,''):'(nimic)',{mono:1,px:23,bg:'#f0f2f8',ind:20});
+   if(s.inp)text('Intrări: '+s.inp,{ind:20,px:24});
+   text('Rezultat în terminal:',{ind:20,px:24,b:1});
+   text(s.term||'(nerulat)',{mono:1,px:23,bg:'#12161f',col:'#d7f5dd',ind:20});
+  }
+  y+=26;
+ });
+ cv.forEach((cc,i)=>{const g=cc.getContext('2d');g.font='22px '+SANS;g.fillStyle='#777';g.fillText(name+' – Lecția 3 cl. V – pagina '+(i+1)+'/'+cv.length,M,H-45)});
+ return cv;
+}
+function makePdf(cv){
+ const enc=new TextEncoder(),parts=[],offs=[];let len=0;
+ const w=s=>{const b=typeof s==='string'?enc.encode(s):s;parts.push(b);len+=b.length};
+ const n=cv.length,tot=2+3*n;
+ w('%PDF-1.4\n');
+ offs[1]=len;w('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+ offs[2]=len;w('2 0 obj\n<< /Type /Pages /Count '+n+' /Kids ['+cv.map((_,k)=>(3+3*k)+' 0 R').join(' ')+'] >>\nendobj\n');
+ cv.forEach((cc,k)=>{
+  const pid=3+3*k,iid=4+3*k,cid=5+3*k;
+  const bin=atob(cc.toDataURL('image/jpeg',0.85).split(',')[1]),b=new Uint8Array(bin.length);
+  for(let j=0;j<bin.length;j++)b[j]=bin.charCodeAt(j);
+  offs[pid]=len;w(pid+' 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 '+iid+' 0 R >> >> /Contents '+cid+' 0 R >>\nendobj\n');
+  offs[iid]=len;w(iid+' 0 obj\n<< /Type /XObject /Subtype /Image /Width '+cc.width+' /Height '+cc.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+b.length+' >>\nstream\n');w(b);w('\nendstream\nendobj\n');
+  const cs='q 595 0 0 842 0 0 cm /Im0 Do Q';
+  offs[cid]=len;w(cid+' 0 obj\n<< /Length '+cs.length+' >>\nstream\n'+cs+'\nendstream\nendobj\n');
+ });
+ const xr=len;let t='xref\n0 '+(tot+1)+'\n0000000000 65535 f \n';
+ for(let k=1;k<=tot;k++)t+=String(offs[k]).padStart(10,'0')+' 00000 n \n';
+ w(t+'trailer\n<< /Size '+(tot+1)+' /Root 1 0 R >>\nstartxref\n'+xr+'\n%%EOF');
+ return new Blob(parts,{type:'application/pdf'});
+}
+const dl=document.getElementById('dl'),msg=document.getElementById('dlmsg'),nm=document.getElementById('nm');
+dl.onclick=async()=>{
+ const name=nm.value.trim();
+ if(!name){msg.textContent='✏️ Scrie mai întâi numele tău, apoi descarcă PDF-ul.';nm.focus();return}
+ msg.textContent='Se pregătește PDF-ul…';
+ try{
+  const dls=await claude.use('downloads');
+  if(!dls){msg.textContent='⚠️ Descărcarea nu este disponibilă în acest mod de vizualizare. Deschide pagina din contul tău Claude.';return}
+  const blob=makePdf(buildReport(name));
+  const fn='Tema_Lectia3_Cl5_'+name.replace(/[^\p{L}\p{N}]+/gu,'_').replace(/^_|_$/g,'')+'.pdf';
+  await dls.save({filename:fn,data:blob});
+  msg.textContent='✅ PDF-ul a fost salvat ('+fn+'). Încarcă-l ca temă!';
+ }catch(e){
+  msg.textContent=e&&e.code==='declined'?'Descărcarea a fost anulată. Poți apăsa din nou butonul.':'⚠️ Nu am putut salva PDF-ul ('+((e&&e.code)||'eroare')+').';
+ }
+};
+</script>
+</body>
+</html>
+Se afișează documentul Lecția 3_ Prioritate și asociativitate – clasa a V-a.html.

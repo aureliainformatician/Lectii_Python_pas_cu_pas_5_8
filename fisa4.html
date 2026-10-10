@@ -1,0 +1,123 @@
+
+Lecția 4_ Variabile în Python_pas_cu_pas.html
+100 %
+<!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Lecția 4: Variabile în Python · clasa a V-a</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#f6faf3;--fg:#1c2a1d;--card:#fff;--bd:#d3e2cf;--ac:#2e7d32;--no:#c62828;--tm:#10231a;--tf:#b9f6ca;--hint:#fff8e1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a14;--fg:#e6efe3;--card:#1b261d;--bd:#2e4033;--ac:#66bb6a;--no:#ef9a9a;--hint:#3a3420}}
+:root[data-theme="dark"]{--bg:#121a14;--fg:#e6efe3;--card:#1b261d;--bd:#2e4033;--ac:#66bb6a;--no:#ef9a9a;--hint:#3a3420}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;margin:14px 0}
+code,pre,textarea{font-family:ui-monospace,Consolas,monospace}code{background:var(--bd);padding:1px 5px;border-radius:4px}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid var(--bd);padding:6px;text-align:left}.sc{overflow-x:auto}
+.ex h3{margin:0 0 6px;font-size:1.05rem}.tag{font-size:.75rem;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);margin-left:6px}.tag.ok{background:var(--ac);color:#fff;border-color:var(--ac)}
+button{font:inherit;cursor:pointer;border:1px solid var(--ac);background:transparent;color:var(--fg);border-radius:8px;padding:6px 12px;margin:3px 4px 3px 0}
+button.p{background:var(--ac);color:#fff}button.good{background:var(--ac);color:#fff}button.bad{border-color:var(--no);color:var(--no)}
+textarea{width:100%;box-sizing:border-box;background:var(--tm);color:var(--tf);border:0;border-radius:8px;padding:8px;min-height:80px}
+pre.out{background:var(--tm);color:var(--tf);border-radius:8px;padding:8px;min-height:32px;margin:6px 0;white-space:pre-wrap}
+.h{background:var(--hint);border-radius:8px;padding:6px 10px;display:none}.lab{font-size:.75rem;letter-spacing:.05em;opacity:.7}
+input.nm{padding:7px;border-radius:8px;border:1px solid var(--bd);width:min(100%,320px);background:var(--card);color:var(--fg)}
+.bx{display:inline-flex;flex-direction:column;align-items:center;border:2px solid var(--ac);border-radius:8px;overflow:hidden;margin:4px 8px 4px 0;min-width:80px}.bx i{background:var(--ac);color:#fff;font-style:normal;padding:2px 10px;font-size:.85rem;width:100%;text-align:center;box-sizing:border-box}.bx b{padding:6px 10px}
+.tip{border-left:4px solid var(--ac);background:var(--hint);padding:8px 12px;border-radius:6px;margin:10px 0}.tip.w{border-left-color:var(--no)}
+.fb{margin:6px 0;font-weight:600}.fb.g{color:var(--ac)}.fb.r{color:var(--no)}.exp{margin:6px 0}
+.card pre:not(.out){background:var(--tm);color:var(--tf);padding:8px 10px;border-radius:8px;overflow-x:auto;margin:8px 0}
+.card h3.st{margin:16px 0 4px;color:var(--ac)}
+</style></head><body><main>
+<h1>🐍 Lecția 4: Variabile în Python · clasa a V-a</h1>
+<p>Citește teoria, apoi rezolvă exercițiile <b>în ordine</b>: încep ușor și devin mai grele. După fiecare exercițiu vezi dacă ai răspuns corect. La final descarcă răspunsurile în PDF și încarcă-l ca temă.</p>
+<div class="card"><h2 style="margin-top:0">Ce trebuie să reții</h2>
+<h3 class="st">1. Ce este o variabilă?</h3>
+<p>O variabilă este ca o <b>cutie cu etichetă</b>. Pe etichetă scrii <b>numele</b>. În cutie pui o <b>valoare</b>.</p>
+<div class="bx"><i>rosii</i><b>6</b></div><div class="bx"><i>nume</i><b>Ana</b></div><div class="bx"><i>strat</i><b>3</b></div>
+<h3 class="st">2. Cum pui o valoare în cutie?</h3>
+<pre>rosii = 6</pre>
+<p>Citește: „pune 6 în cutia <code>rosii</code>”. Semnul <code>=</code> nu înseamnă „egal”, ci <b>„pune în”</b>. Se mai numește <b>atribuire</b>.</p>
+<h3 class="st">3. Cum afișezi ce e în cutie?</h3>
+<pre>rosii = 6
+print(rosii)      # se afișează 6
+print("rosii")    # se afișează rosii</pre>
+<div class="tip"><b>Ține minte:</b> fără ghilimele afișezi <b>ce este în cutie</b>. Cu ghilimele afișezi <b>chiar cuvântul</b>.</div>
+<h3 class="st">4. Valoarea din cutie se poate schimba</h3>
+<pre>nr = 4
+nr = nr + 3
+print(nr)</pre>
+<p><b>Linia 1:</b> în cutia <code>nr</code> intră 4.<br><b>Linia 2:</b> Python ia 4, adaugă 3 și obține 7. Pune 7 în cutia <code>nr</code> (vechea valoare dispare).<br><b>Linia 3:</b> se afișează <code>7</code>.</p>
+<h3 class="st">5. Citirea de la tastatură</h3>
+<pre>nume = input()
+print(nume)</pre>
+<p>Programul așteaptă să scrii ceva. Ce scrii intră în cutia <code>nume</code>. Apoi <code>print</code> îl afișează.</p>
+<h3 class="st">6. Virgulă sau plus în print?</h3>
+<pre>print("Ana", "Maria")    # Ana Maria   (virgula pune spațiu)
+print("Ana" + "Maria")    # AnaMaria    (plusul lipește)</pre>
+<h3 class="st">7. Mai multe cutii dintr-o dată</h3>
+<pre>b = c = d = 47             # toate trei primesc 47
+e, f, g = 109, 3, 14      # e=109, f=3, g=14</pre>
+<p>La a doua linie, prima valoare merge în prima variabilă, a doua în a doua și tot așa.</p>
+<div class="tip w"><b>Atenție la greșeli:</b><br>• Numele nu are spații și nu începe cu cifră: <code>nr_strat</code> e bun, <code>2strat</code> nu.<br>• Literele mari și mici contează: <code>nr</code> și <code>Nr</code> sunt cutii diferite.<br>• Dacă folosești o cutie care nu există, apare <code>NameError</code>. De obicei ai scris greșit numele.</div>
+<div class="tip"><b>Cum rezolvi un exercițiu:</b> 1) citește ce se cere, 2) citește codul linie cu linie, 3) scrie ce se află în fiecare cutie, 4) rulează și compară cu rezultatul așteptat.</div></div>
+<div class="card"><b>Numele și clasa ta</b> (ex.: Popescu Ana, a V-a B)<br><input class="nm" id="nm"> <button class="p" id="pdf">⬇ Descarcă răspunsurile în PDF</button><div><b id="cnt">Rezolvate: 0 / 10</b></div></div>
+<div id="exs"></div>
+</main>
+<script>
+class Fl{constructor(v){this.v=v}}
+const N=x=>x instanceof Fl?x.v:x,tn=x=>typeof x=='string'?'str':x instanceof Fl?'float':'int',mk=(v,f)=>f?new Fl(v):v;
+const fmt=x=>x===null?'None':x&&x.ty?`<class '${x.ty}'>`:x instanceof Fl?(Number.isInteger(x.v)?x.v.toFixed(1):String(x.v)):String(x);
+function op(o,a,b){const f=a instanceof Fl||b instanceof Fl,sa=typeof a=='string',sb=typeof b=='string';
+if(o=='+'){if(sa&&sb)return a+b;if(sa||sb)throw`TypeError: can only concatenate str (not "${tn(sa?b:a)}") to str`;return mk(N(a)+N(b),f)}
+if(o=='*'&&(sa||sb)){const s=sa?a:b,k=sa?b:a;if(typeof k=='string'||k instanceof Fl)throw`TypeError: can't multiply sequence by non-int of type '${tn(k)}'`;return s.repeat(Math.max(0,k))}
+if(sa||sb)throw`TypeError: unsupported operand type(s) for ${o}: '${tn(a)}' and '${tn(b)}'`;
+a=N(a);b=N(b);if(o=='*')return mk(a*b,f);if(o=='-')return mk(a-b,f);if(o=='**')return mk(a**b,f||b<0);
+if(b==0)throw'ZeroDivisionError: division by zero';
+if(o=='/')return new Fl(a/b);if(o=='//')return mk(Math.floor(a/b),f);return mk(a-b*Math.floor(a/b),f)}
+function run(code,ins){const out=[],env={};let ii=0;
+const call=(f,a)=>{if(f=='print'){out.push(a.map(fmt).join(' '));return null}
+if(f=='input')return ins[ii++]??'';if(f=='str')return fmt(a[0]);if(f=='type')return{ty:tn(a[0])};
+if(f=='int'){const x=a[0];if(typeof x=='string'){if(!/^\s*[-+]?\d+\s*$/.test(x))throw`ValueError: invalid literal for int() with base 10: '${x}'`;return parseInt(x)}return Math.trunc(N(x))}
+if(f=='float'){const x=a[0];if(typeof x=='string'){if(!x.trim()||isNaN(+x))throw`ValueError: could not convert string to float: '${x}'`;return new Fl(+x)}return new Fl(N(x))}
+throw`NameError: name '${f}' is not defined`};
+const re=/\s*(?:(\d+\.\d*|\.\d+|\d+)|([\p{L}_][\p{L}\p{N}_]*)|("[^"]*"|'[^']*')|(\*\*|\/\/|[-+*\/%(),=]))/yu;
+try{code.split('\n').forEach(l=>{l=l.replace(/#.*$/,'').trimEnd();if(!l.trim())return;
+let T=[];re.lastIndex=0;while(re.lastIndex<l.length){const m=re.exec(l);if(!m)throw'SyntaxError: sintaxă invalidă';T.push(m[1]?{t:'n',v:m[1]}:m[2]?{t:'i',v:m[2]}:m[3]?{t:'s',v:m[3]}:{t:'o',v:m[4]})}
+let i=0;const pk=()=>T[i],nx=()=>T[i++],is=(...s)=>pk()&&pk().t=='o'&&s.includes(pk().v);
+const at=()=>{const k=nx();if(!k)throw'SyntaxError: sintaxă invalidă';if(k.t=='n')return k.v.includes('.')?new Fl(+k.v):+k.v;if(k.t=='s')return k.v.slice(1,-1);
+if(k.t=='o'&&k.v=='('){const v=ex();nx();return v}
+if(k.t=='i'){if(is('(')){nx();const a=[];while(pk()&&!is(')')){a.push(ex());if(is(','))nx()}nx();return call(k.v,a)}
+if(!(k.v in env))throw`NameError: name '${k.v}' is not defined`;return env[k.v]}throw'SyntaxError: sintaxă invalidă'};
+const un=()=>{if(is('-')){nx();return op('-',0,un())}const a=at();if(is('**')){nx();return op('**',a,un())}return a};
+const mu=()=>{let a=un();while(is('*','/','//','%')){const o=nx().v;a=op(o,a,un())}return a};
+const ex=()=>{let a=mu();while(is('+','-')){const o=nx().v;a=op(o,a,mu())}return a};
+const sp=[[]];T.forEach(x=>x.t=='o'&&x.v=='='?sp.push([]):sp[sp.length-1].push(x));
+const lst=q=>{T=q;i=0;const r=[];while(i<T.length){r.push(ex());if(is(','))nx();else break}if(i<T.length)throw'SyntaxError: sintaxă invalidă';return r};
+const vals=lst(sp[sp.length-1]);
+sp.slice(0,-1).forEach(q=>{const n=q.filter(x=>x.t=='i');if(n.length!=vals.length)throw'ValueError: număr greșit de valori';n.forEach((x,j)=>env[x.v]=vals[j])})})}catch(e){out.push(typeof e=='string'?e:'SyntaxError: sintaxă invalidă')}
+return out.join('\n')}
+const V='<pre>x = "ab"\ny = "cd"</pre>',W='<pre>n = 3\nm = 2</pre>',E=[
+{t:'Prima variabilă',q:'Ana pune 12 răsaduri în cutia <code>r</code>. Ce afișează programul?<pre>r = 12\nprint(r)</pre>',o:['r','12','r = 12','eroare'],a:1,h:'print(r) afișează ce este în cutia r, adică 12.'},
+{t:'Valoarea se schimbă',q:'Ce afișează programul?<pre>nr = 4\nnr = nr + 3\nprint(nr)</pre>',o:['4','3','7','43'],a:2,h:'Linia 2 calculează 4 + 3 = 7 și pune 7 în nr.'},
+{t:'Lipirea textelor',q:'Ce afișează programul?'+V.replace('</pre>','\nprint(x + y)</pre>'),o:['ab cd','abcd','x + y'],a:1,h:'Plusul lipește textele, fără spațiu între ele.'},
+{t:'Afișare cu virgulă',q:'Ce afișează programul?'+V.replace('</pre>','\nprint(x, y)</pre>'),o:['ab cd','abcd','x y'],a:0,h:'Virgula pune un spațiu între valori.'},
+{t:'Afișează o variabilă',c:1,q:'Variabila <code>rosii</code> are valoarea 6. Scrie linia care o afișează.',s:'rosii = 6\n# scrie aici linia care afișează rosii',i:'',x:'6',h:'print(rosii) fără ghilimele.'},
+{t:'Salută-l pe cititor',c:1,q:'Programul citește un nume. Înlocuiește <code>___</code> cu numele variabilei, ca să afișeze <b>Salut, Ana</b> pentru intrarea Ana.',s:'nume = input()\nprint("Salut, " + ___)',i:'Ana',x:'Salut, Ana',h:'În locul lui ___ scrie nume, fără ghilimele.'},
+{t:'Calcul cu variabile',q:'Ce afișează programul?'+W.replace('</pre>','\nprint(m*n-1)</pre>'),o:['7','4','5'],a:2,h:'Întâi înmulțirea: 2 * 3 = 6. Apoi 6 - 1 = 5.'},
+{t:'Mai multe valori în print',q:'Ce afișează programul?'+W.replace('</pre>','\nprint(1 + m*n, m, n)</pre>'),o:['7 2 3','723','9 2 3','9 3 2'],a:0,h:'Prima valoare: 1 + 6 = 7. Apoi m (2) și n (3), cu spații între ele.'},
+{t:'Atribuire multiplă',c:1,q:'Ana are 6 roșii, 8 ardei și 3 vinete. Înlocuiește fiecare <code>___</code> cu valoarea potrivită.',s:'rosii, ardei, vinete = ___, ___, ___\nprint(rosii, ardei, vinete)',i:'',x:'6 8 3',h:'Scrie 6, 8, 3 în locul celor trei ___, în această ordine.'},
+{t:'Schimbă valorile',c:1,q:'Cutia <code>a</code> are 6 răsaduri, iar <code>b</code> are 9. Schimbă valorile între ele ca să se afișeze <b>9 6</b>. Prima parte e făcută: valoarea lui a e salvată în <code>aux</code>.',s:'a = 6\nb = 9\naux = a\n# pune în a valoarea din b\n# pune în b valoarea din aux\nprint(a, b)',i:'',x:'9 6',h:'Scrie a = b, apoi b = aux.'}];
+const st={},box=document.getElementById('exs');
+function upd(){const n=Object.values(st).filter(v=>v.ok).length;cnt.textContent='Rezolvate: '+n+' / 10'}
+function done(k,card,v){st[k]=Object.assign(st[k]||{},v);card.querySelector('.tag').className='tag'+(st[k].ok?' ok':'');card.querySelector('.tag').textContent=st[k].ok?'rezolvat ✓':'de rezolvat';upd()}
+E.forEach((e,k)=>{const d=document.createElement('div');d.className='card ex';
+d.innerHTML=`<h3>Exercițiul ${k+1}: ${e.t}<span class="tag">de rezolvat</span></h3><p>${e.q}</p>`;
+if(!e.c){const r=document.createElement('div'),fbm=document.createElement('div');fbm.className='fb';e.o.forEach((o,j)=>{const b=document.createElement('button');b.textContent=o;b.onclick=()=>{const ok=j==e.a;[...r.children].forEach(x=>x.className='');b.className=ok?'good':'bad';done(k,d,{ok,ans:o});fbm.className='fb '+(ok?'g':'r');fbm.textContent=(ok?'✅ Corect! ':'❌ Nu e corect, încearcă altă variantă. ')+(ok?e.h:'')};r.appendChild(b)});d.append(r,fbm)}
+else{d.insertAdjacentHTML('beforeend',`<div class="exp">Rezultat așteptat: <b>${e.x.replace(/\n/g," ")}</b></div><div class="lab">CODUL TĂU</div><textarea spellcheck="false">${e.s}</textarea>${e.i?`<div class="lab">INTRĂRI (CÂTE UN RÂND PENTRU FIECARE INPUT())</div><textarea style="min-height:40px">${e.i}</textarea>`:''}<button class="p">▶ Rulează</button><button>↺ Resetează codul</button><div class="lab">IEȘIRE (TERMINAL)</div><pre class="out"></pre><div class="fb"></div>`);
+const [c,inp]=d.querySelectorAll('textarea'),[bt,rs]=d.querySelectorAll('button'),o=d.querySelector('.out');
+bt.onclick=()=>{const r=run(c.value,inp?inp.value.split('\n'):[]);const ok=r.trim()==e.x,fb=d.querySelector('.fb');o.textContent=r;fb.className='fb '+(ok?'g':'r');fb.textContent=ok?'✅ Corect! Bravo!':(/Error/.test(r)?'❌ Programul are o eroare. Citește mesajul din terminal și corectează.':'❌ Încă nu. Compară ieșirea cu rezultatul așteptat și încearcă din nou.');done(k,d,{ok,ans:c.value,out:r})};rs.onclick=()=>{c.value=e.s;o.textContent=''}}
+const hb=document.createElement('button');hb.textContent='💡 Indiciu';const hh=document.createElement('div');hh.className='h';hh.textContent=e.h;hb.onclick=()=>hh.style.display=hh.style.display=='block'?'none':'block';d.append(hb,hh);box.appendChild(d)});
+pdf.onclick=()=>{const s=t=>String(t).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ș|ş/g,'s').replace(/ț|ţ/g,'t'),D=new jspdf.jsPDF();let y=15;
+const w=(t,sz=11)=>{D.setFontSize(sz);D.splitTextToSize(s(t),180).forEach(l=>{if(y>280){D.addPage();y=15}D.text(l,15,y);y+=sz*.5+1.5})};
+w('Lectia 4: Variabile in Python - clasa a V-a',14);w('Nume si clasa: '+(nm.value||'-'));w(cnt.textContent+'\n');
+E.forEach((e,k)=>{const v=st[k]||{};w(`Exercitiul ${k+1}: ${e.t} - ${v.ok?'rezolvat':'nerezolvat'}`);w('Raspuns: '+(v.ans||'-'));if(v.out!==undefined)w('Iesire: '+v.out);y+=3});D.save('Lectia4_raspunsuri.pdf')};
+</script></body></html>
+Se afișează documentul Lecția 4_ Variabile în Python_pas_cu_pas.html.
