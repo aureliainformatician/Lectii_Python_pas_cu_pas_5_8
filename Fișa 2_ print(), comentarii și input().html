@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fișa 2: print(), comentarii și input() – Exerciții interactive</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7fb;--card:#fff;--tx:#1d2330;--mut:#5d6677;--bd:#dde1ea;--pri:#3b6ef5;--ok:#1a8f4c;--okbg:#e6f6ec;--er:#c62f3b;--erbg:#fdecee;--term:#12161f;--termtx:#d7f5dd;--code:#f0f2f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--code:#232a3a}}
+:root[data-theme="dark"]{--bg:#10131a;--card:#1a1f2b;--tx:#e8ebf2;--mut:#9aa3b5;--bd:#2c3345;--pri:#6d93ff;--ok:#4cd283;--okbg:#14301f;--er:#ff7b86;--erbg:#38191d;--term:#0a0c11;--code:#232a3a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:780px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 4px}
+h3{margin:30px 0 0;font-size:1.1rem;color:var(--pri);border-bottom:2px solid var(--bd);padding-bottom:4px}
+.sub{color:var(--mut);margin:0 0 12px}
+.box{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--pri);border-radius:10px;padding:10px 16px;font-size:.94rem;margin:10px 0}
+.box ul,.box ol{margin:4px 0;padding-left:22px}
+.box pre{margin-top:6px}
+.prog{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .4s}
+.pt{font-size:.85rem;color:var(--mut);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0}
+.card.done{border-color:var(--ok)}
+.card h2{font-size:1.05rem;margin:0 0 6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:.75rem;background:var(--code);border-radius:99px;padding:2px 10px;color:var(--mut)}
+.card.done .badge{background:var(--okbg);color:var(--ok)}
+.card p{margin:6px 0}
+.req{margin:4px 0 0;padding-left:22px}
+.req li{margin:3px 0}
+code,pre,textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.lbl{font-size:.78rem;color:var(--mut);margin:12px 0 4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+pre{margin:0;padding:10px 12px;border-radius:8px;overflow-x:auto;font-size:.9rem;white-space:pre}
+pre.exp,pre.cd{background:var(--code)}
+pre.out{background:var(--term);color:var(--termtx);min-height:44px}
+pre.out.err{color:#ff9aa2}
+.ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 14px}
+.note2{font-size:.85rem;color:var(--mut);margin-top:4px}
+textarea{width:100%;resize:vertical;padding:10px 12px;border-radius:8px;border:2px solid var(--bd);background:var(--code);color:var(--tx);font-size:.95rem;line-height:1.5}
+textarea.inp{min-height:0;font-size:.9rem}
+textarea:focus{outline:none;border-color:var(--pri)}
+textarea[readonly]{border-color:var(--ok)}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button{font:inherit;font-size:.92rem;padding:8px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+button.run{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+button.opt{font-weight:600;min-width:48px;text-align:left}
+button:hover{filter:brightness(.95)}
+button:disabled{opacity:.6;cursor:default}
+.fb{margin-top:10px;padding:10px 12px;border-radius:8px;display:none;white-space:pre-wrap}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok)}
+.fb.no{display:block;background:var(--erbg);color:var(--er)}
+.hint{display:none;margin-top:8px;padding:8px 12px;border-left:4px solid var(--pri);background:var(--code);border-radius:4px;font-size:.92rem}
+.sol{display:none;margin-top:12px;border:1px dashed var(--ok);border-radius:8px;padding:10px 12px}
+.sol pre{background:var(--code);margin-top:6px}
+.sol b{color:var(--ok)}
+.sol p{font-size:.92rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>🐍 Fișa 2: <code>print()</code>, comentarii <code>#</code> și <code>input()</code></h1>
+<p class="sub">31 de exerciții, de la ușor la mai greu. Soluția apare doar după ce rezolvi corect. Poți încerca de câte ori vrei!</p>
+
+<div class="box"><b>Cum lucrezi</b><ol>
+<li>Citește <b>Cerințele</b> și uită-te la <b>Exemplu</b>: acolo vezi exact ce trebuie să afișeze programul.</li>
+<li>Scrie codul în caseta „Codul tău”.</li>
+<li>La „Intrări” scrii ce ar tasta utilizatorul, <b>câte un rând pentru fiecare <code>input()</code></b>, în ordinea în care sunt citite.</li>
+<li>Apasă <b>Rulează</b>. Programul este verificat și cu alte valori decât cele din exemplu.</li>
+</ol>
+<b>Ce se verifică:</b> doar ce afișează <code>print()</code>, <b>identic, caracter cu caracter</b> (majuscule, diacritice, spații, semne de punctuație). Textul din <code>input("...")</code> poate fi oricare: apare în terminal, dar nu se verifică. Spațiile de la finalul unui rând nu contează.
+</div>
+
+<div class="box"><b>Ce trebuie să reții</b><ul>
+<li><code>#</code> – linia este ignorată de Python (comentariu).</li>
+<li><code>input()</code> – oprește programul și așteaptă un text de la tastatură; returnează <b>mereu text</b>.</li>
+<li><code>int()</code> – transformă textul în număr întreg.</li></ul>
+<pre class="cd">print("a", "b")      →  a b      (virgula pune un spațiu)
+print("a" + "b")      →  ab       (+ lipește textele)
+print("ab" * 3)       →  ababab   (text * număr = text repetat)
+print(7 // 2)         →  3        (câtul împărțirii întregi)
+print(7 % 2)          →  1        (restul împărțirii)
+print(2 ** 3)         →  8        (ridicare la putere)</pre></div>
+
+<div class="prog"><div class="bar"><i id="bar"></i></div><div class="pt" id="pt"></div></div>
+<div id="list"></div>
+</main>
+<script>
+const R=(s,n)=>s.repeat(n);
+const EX=[
+/* ===== PARTEA 1: print() ===== */
+{t:"Primul mesaj",
+ d:`Afișează un mesaj pe ecran cu print().`,
+ req:[`Programul nu citește nimic de la tastatură (nu folosește input()).`,`Trebuie să afișeze exact textul: Bună, lume!`,`Atenție la majuscula B, la virgulă și la semnul exclamării.`],
+ tests:[[[],"Bună, lume!"]],
+ hint:`Textul se scrie între ghilimele, în interiorul parantezelor: print("...").`,
+ sol:`print("Bună, lume!")`},
+{t:"Două rânduri",
+ d:`Fiecare apel print() afișează textul și apoi trece pe rândul următor.`,
+ req:[`Folosește două instrucțiuni print(), fiecare pe linia ei.`,`Prima afișează: Rândul 1`,`A doua afișează: Rândul 2`],
+ tests:[[[],"Rândul 1\nRândul 2"]],
+ must:[[/print[\s\S]*print/,`Folosește două instrucțiuni print(), câte una pe fiecare linie.`]],
+ hint:`Scrie print("...") de două ori, una sub alta.`,
+ sol:`print("Rândul 1")\nprint("Rândul 2")`},
+{t:"Python face calculele",
+ d:`print() poate afișa și rezultatul unui calcul. Calculul îl face Python, nu tu.`,
+ req:[`Afișează rezultatul calculului 15 * 4.`,`În cod trebuie să apară calculul 15 * 4, nu rezultatul scris de mână.`,`Ieșirea cerută: 60`],
+ tests:[[[],"60"]],
+ must:[[/15\s*\*\s*4/,`Scrie calculul 15 * 4 în interiorul lui print(), nu rezultatul.`]],
+ hint:`Numerele nu se pun între ghilimele: print(15 * 4).`,
+ sol:`print(15 * 4)`},
+{t:"Linia de cratime",
+ d:`Un text înmulțit cu un număr întreg se repetă.`,
+ req:[`Afișează o linie formată din exact 20 de caractere - (cratimă), una lângă alta, fără spații.`,`Nu scrie cele 20 de cratime de mână: înmulțește textul "-" cu 20.`],
+ tests:[[[],R("-",20)]],
+ must:[[/\*\s*20/,`Folosește înmulțirea: textul "-" înmulțit cu 20.`]],
+ hint:`print("ceva" * 5) afișează de 5 ori „ceva”, lipit.`,
+ sol:`print("-" * 20)`},
+{t:"Lipește cuvinte",
+ d:`Operatorul + lipește două texte într-unul singur, fără spațiu între ele.`,
+ req:[`Afișează cuvântul: Program`,`Construiește-l din două bucăți de text, "Pro" și "gram", lipite cu operatorul +.`,`Nu scrie cuvântul „Program” întreg nicăieri în cod.`],
+ tests:[[[],"Program"]],
+ must:[[/\+/,`Lipește cele două bucăți cu operatorul +.`],[/Program/,`Nu scrie cuvântul „Program” întreg în cod: lipește „Pro” cu „gram”.`,true]],
+ hint:`print("prima bucată" + "a doua bucată")`,
+ sol:`print("Pro" + "gram")`},
+
+/* ===== PARTEA 2: comentarii ===== */
+{t:"Corectează programul cu comentarii",
+ d:`Programul de mai jos nu merge: două linii print() au fost comentate din greșeală, iar o linie de explicație nu are #.`,
+ req:[`Șterge # din fața celor două linii print(), ca să se execute.`,`Pune # în fața liniei „Acesta este un comentariu explicativ”, ca Python să o ignore.`,`Nu șterge nicio linie din program.`,`La „Intrări” lasă un rând gol (utilizatorul apasă doar Enter).`],
+ start:'# Acesta este un program de intampinare\n# print("Începem programul...")\n\nAcesta este un comentariu explicativ\ninput("Apasă Enter pentru a continua: ")\n# print("Programul s-a încheiat cu succes!")\n',
+ tests:[[[""],"Începem programul...\nProgramul s-a încheiat cu succes!"]],
+ must:[[/^\s*#.*Acesta este un comentariu explicativ/m,`Linia „Acesta este un comentariu explicativ” trebuie să rămână în program, cu # în față.`]],
+ hint:`Dintr-un comentariu faci cod scoțând #. Dintr-un text simplu faci comentariu adăugând #.`,
+ sol:'# Acesta este un program de intampinare\nprint("Începem programul...")\n\n# Acesta este un comentariu explicativ\ninput("Apasă Enter pentru a continua: ")\nprint("Programul s-a încheiat cu succes!")',
+ note:`Liniile print() erau comentate inutil, iar rândul cu text simplu trebuia să înceapă cu #.`},
+{t:"Dezactivează o linie",
+ d:`Uneori nu ștergi o linie de cod, ci o „oprești” punând # în fața ei.`,
+ req:[`Pune # în fața liniei care afișează „Greșit!”. Nu șterge nicio linie.`,`Ieșirea cerută are două rânduri: Salut! și apoi Pa!`],
+ start:'print("Salut!")\nprint("Greșit!")\nprint("Pa!")\n',
+ tests:[[[],"Salut!\nPa!"]],
+ must:[[/^\s*#\s*print\(\s*"Greșit!"\s*\)/m,`Linia cu „Greșit!” trebuie să rămână în program, dar comentată (cu # în față).`]],
+ hint:`Pune # chiar la începutul liniei print("Greșit!").`,
+ sol:'print("Salut!")\n# print("Greșit!")\nprint("Pa!")'},
+{t:"Adaugă un comentariu",
+ d:`Comentariile sunt notițe pentru oameni: Python nu le execută și nu apar pe ecran.`,
+ req:[`Adaugă deasupra liniei print() un comentariu: o linie care începe cu # și explică ce face programul (de exemplu: # Afișează numele limbajului).`,`Nu modifica linia print("Python").`,`Ieșirea rămâne: Python (comentariul nu apare pe ecran).`],
+ start:'print("Python")\n',
+ tests:[[[],"Python"]],
+ must:[[/^\s*#\s*\S+/m,`Programul trebuie să conțină un comentariu: o linie care începe cu # urmat de un text.`]],
+ hint:`Scrie o linie nouă deasupra, care începe cu #, apoi un spațiu și explicația.`,
+ sol:'# Afișează numele limbajului\nprint("Python")'},
+{t:"Câte rânduri se afișează?",mc:1,
+ d:`Fără să rulezi codul: câte rânduri vor fi afișate efectiv pe ecran?`,
+ code:'# print("Mesajul 1")\nprint("Mesajul 2")\n# Aceasta linie este doar o explicatie\n# print("Mesajul 3")\nprint("Mesajul 4")',
+ opts:["1","2","3","4"],ans:1,hint:`Liniile care încep cu # sunt ignorate.`,
+ sol:`Doar 2 rânduri (linia 2 și linia 5). Liniile 1, 3 și 4 încep cu #, deci sunt comentarii ignorate complet de Python.`},
+
+/* ===== PARTEA 3: input() cu text ===== */
+{t:"Ecoul",
+ d:`input() citește un text de la tastatură. Îl poți pune direct în interiorul lui print().`,
+ req:[`Programul citește un text și îl afișează neschimbat.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["Python"],"Python"],[["Ana are mere"],"Ana are mere"]],one:1,
+ hint:`input(...) poate fi scris direct între parantezele lui print().`,
+ sol:`print(input("Scrie un text: "))`},
+{t:"Numele tău",
+ d:`Virgula dintre argumentele lui print() pune automat un spațiu între ele.`,
+ req:[`Programul citește un nume.`,`Afișează textul „Numele tău este:”, un spațiu, apoi numele citit.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["Ana"],"Numele tău este: Ana"],[["Mihai"],"Numele tău este: Mihai"]],one:1,
+ hint:`Pune input(...) ca al doilea argument al lui print(), după o virgulă.`,
+ sol:`print("Numele tău este:", input("Introdu numele tău: "))`},
+{t:"Salut fără spațiu înainte de „!”",
+ d:`Cu virgula, Python pune un spațiu între argumente. Dacă vrei texte lipite, folosește +.`,
+ req:[`Programul citește un nume.`,`Afișează exact: Salut, [nume]! Spor la învățat!`,`Între nume și semnul ! nu există spațiu.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["Ana"],"Salut, Ana! Spor la învățat!"],[["Dan"],"Salut, Dan! Spor la învățat!"]],one:1,
+ hint:`Lipește cu + trei bucăți de text: începutul, input(...) și sfârșitul.`,
+ sol:`print("Salut, " + input("Introdu numele tău: ") + "! Spor la învățat!")`,
+ note:`Cu virgulă ai fi obținut „Salut, Ana ! Spor la învățat!”, cu spațiu înainte de „!”.`},
+{t:"Cuvântul de trei ori",
+ d:`Un text înmulțit cu un număr întreg se repetă. Se poate înmulți și rezultatul lui input().`,
+ req:[`Programul citește un cuvânt.`,`Îl afișează de 3 ori la rând, lipit, fără spații.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["ha"],"hahaha"],[["Python"],"PythonPythonPython"]],one:1,
+ hint:`Înmulțește direct input(...) cu 3, în interiorul lui print().`,
+ sol:`# Citim cuvântul și îl multiplicăm direct de 3 ori\nprint(input("Introdu un cuvânt: ") * 3)`},
+{t:"Supeeer!",
+ d:`Combină + și * într-o singură expresie.`,
+ req:[`Programul citește un număr întreg n.`,`Afișează textul „Sup”, apoi litera e repetată de n ori, apoi „r!”. Totul lipit, fără spații.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["5"],"Sup"+R("e",5)+"r!"],[["2"],"Sup"+R("e",2)+"r!"]],one:1,
+ hint:`Ai nevoie de int() în jurul lui input(), ca să poți înmulți textul "e" cu un număr. Bucățile se lipesc cu +.`,
+ sol:`print("Sup" + "e" * int(input("Câți de e? ")) + "r!")`},
+
+/* ===== PARTEA 4: input() cu numere ===== */
+{t:"Succesorul",
+ d:`input() citește text. Ca să calculezi cu numărul citit, îl transformi cu int().`,
+ req:[`Programul citește un număr întreg.`,`Afișează textul „Succesorul numărului este:”, un spațiu, apoi numărul + 1.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["7"],"Succesorul numărului este: 8"],[["41"],"Succesorul numărului este: 42"]],one:1,
+ hint:`Pune int( ... ) în jurul lui input(...), apoi adaugă + 1.`,
+ sol:`print("Succesorul numărului este:", int(input("Introdu un număr întreg: ")) + 1)`},
+{t:"Scăderea din 100",
+ d:`Numărul citit cu int() poate fi pus și în dreapta unui operator.`,
+ req:[`Programul citește un număr întreg.`,`Afișează textul „Rezultatul scăderii din 100 este:”, un spațiu, apoi 100 minus numărul citit.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["30"],"Rezultatul scăderii din 100 este: 70"],[["45"],"Rezultatul scăderii din 100 este: 55"]],one:1,
+ hint:`100 - int(input(...))`,
+ sol:`print("Rezultatul scăderii din 100 este:", 100 - int(input("Introdu un număr: ")))`},
+{t:"Pătratul unui număr",
+ d:`Operatorul ** ridică un număr la putere: 5 ** 2 este 25.`,
+ req:[`Programul citește un număr întreg.`,`Afișează textul „Pătratul numărului este:”, un spațiu, apoi numărul ridicat la puterea 2.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["7"],"Pătratul numărului este: 49"],[["12"],"Pătratul numărului este: 144"]],one:1,
+ hint:`int(input(...)) ** 2`,
+ sol:`print("Pătratul numărului este:", int(input("Introdu un număr: ")) ** 2)`},
+{t:"Suma a trei numere",
+ d:`Poți folosi input() de mai multe ori în aceeași linie. Valorile se citesc în ordinea scrisă în cod.`,
+ req:[`Programul citește trei numere întregi, unul după altul (3 rânduri la „Intrări”).`,`Afișează textul „Suma este:”, un spațiu, apoi suma celor trei numere.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["4","5","6"],"Suma este: 15"],[["10","20","30"],"Suma este: 60"]],one:1,
+ hint:`Fiecare input() are nevoie de propriul int(), iar numerele se adună cu +.`,
+ sol:`print("Suma este:", int(input("Primul număr: ")) + int(input("Al doilea număr: ")) + int(input("Al treilea număr: ")))`},
+{t:"Perimetrul dreptunghiului",
+ d:`Formula este P = 2 · (lungime + lățime). Parantezele funcționează în Python ca la matematică.`,
+ req:[`Programul citește întâi lungimea, apoi lățimea (2 rânduri la „Intrări”, ambele numere întregi).`,`Afișează textul „Perimetrul este:”, un spațiu, apoi perimetrul calculat cu formula 2 * (lungime + lățime).`,`Tot programul are o singură linie de cod.`],
+ tests:[[["5","3"],"Perimetrul este: 16"],[["10","4"],"Perimetrul este: 28"]],one:1,
+ hint:`Grupează adunarea în paranteze: 2 * (int(input(...)) + int(input(...)))`,
+ sol:`print("Perimetrul este:", 2 * (int(input("Lungimea: ")) + int(input("Lățimea: "))))`},
+{t:"Pizza: felii întregi",
+ d:`Operatorul // dă câtul împărțirii întregi: 12 // 5 este 2.`,
+ req:[`Programul citește întâi numărul de felii, apoi numărul de persoane (2 rânduri la „Intrări”, ambele întregi).`,`Afișează: Fiecare om primește: [câtul împărțirii] felii întregi!`,`Câtul se calculează cu //. Cuvintele și numărul sunt separate prin spații.`],
+ tests:[[["12","5"],"Fiecare om primește: 2 felii întregi!"],[["10","3"],"Fiecare om primește: 3 felii întregi!"]],
+ hint:`int(input(...)) // int(input(...)), scris între cele două texte, separate prin virgulă.`,
+ sol:`# Împărțim numărul de felii la numărul de oameni folosind //\nprint("Fiecare om primește:", int(input("Câte felii de pizza sunt? ")) // int(input("Câți oameni sunteți? ")), "felii întregi!")`},
+{t:"Pizza: feliile rămase",
+ d:`Operatorul % dă restul împărțirii: 12 % 5 este 2.`,
+ req:[`Programul citește întâi numărul de felii, apoi numărul de persoane (2 rânduri la „Intrări”, ambele întregi).`,`Afișează: Felii rămase: [restul împărțirii]`,`Restul se calculează cu %.`],
+ tests:[[["12","5"],"Felii rămase: 2"],[["10","3"],"Felii rămase: 1"],[["17","4"],"Felii rămase: 1"]],
+ hint:`Același model ca la exercițiul anterior, dar cu % în loc de //.`,
+ sol:`print("Felii rămase:", int(input("Câte felii sunt? ")) % int(input("Câți oameni sunteți? ")))`},
+
+/* ===== PARTEA 5: găsește erorile ===== */
+{t:"Găsește eroarea: 53 în loc de 8",
+ d:`Programul ar trebui să adune două numere, dar pentru 5 și 3 afișează 53.`,
+ req:[`Programul citește două numere întregi.`,`Trebuie să afișeze doar suma lor (de exemplu 8), fără alt text.`,`Nu schimba textele din input(...).`],
+ start:'# Programul ar trebui sa adune doua numere\nprint(input("Primul număr: ") + input("Al doilea număr: "))\n',
+ tests:[[["5","3"],"8"],[["10","20"],"30"]],
+ hint:`Fără int(), + lipește două texte. Convertește ambele input() la numere întregi.`,
+ sol:`# Convertim ambele intrări în numere întregi înainte de adunare\nprint(int(input("Primul număr: ")) + int(input("Al doilea număr: ")))`,
+ note:`input() returnează text, iar „5” + „3” înseamnă lipirea textelor: „53”.`},
+{t:"Găsește eroarea: produsul",
+ d:`Programul ar trebui să afișeze produsul a două numere, dar conține mai multe greșeli.`,
+ req:[`Programul citește două numere întregi.`,`Afișează: Produsul este: [produsul celor două numere]`,`Rulează programul și citește mesajul de eroare din terminal: îți spune rândul cu problema.`],
+ start:'# Program care inmulteste doua numere\nprint("Produsul este:" input("Primul numar: ") * input("Al doilea numar: "))\n',
+ tests:[[["3","4"],"Produsul este: 12"],[["6","7"],"Produsul este: 42"]],
+ hint:`Lipsește o virgulă după text și lipsesc cele două int().`,
+ sol:`# Program care inmulteste doua numere\nprint("Produsul este:", int(input("Primul numar: ")) * int(input("Al doilea numar: ")))`},
+{t:"Găsește eroarea: dublul",
+ d:`Programul ar trebui să afișeze dublul unui număr, dar pentru 5 afișează 55.`,
+ req:[`Programul citește un număr întreg.`,`Afișează: Dublul este: [numărul înmulțit cu 2]`,`Pentru 5 trebuie să apară: Dublul este: 10`],
+ start:'print("Dublul este:", input("Număr: ") * 2)\n',
+ tests:[[["5"],"Dublul este: 10"],[["21"],"Dublul este: 42"]],
+ hint:`Un text înmulțit cu 2 se repetă. Ai nevoie de un număr, nu de text.`,
+ sol:`print("Dublul este:", int(input("Număr: ")) * 2)`},
+{t:"Găsește eroarea: paranteza lipsă",
+ d:`Programul dă eroare imediat ce îl rulezi. Citește mesajul din terminal și repară-l.`,
+ req:[`Programul citește două numere întregi.`,`Afișează: Suma este: [suma celor două numere]`,`Repară doar ce este greșit, fără să schimbi restul liniei.`],
+ start:'print("Suma este:", int(input("a: ")) + int(input("b: "))\n',
+ tests:[[["2","3"],"Suma este: 5"],[["10","15"],"Suma este: 25"]],
+ hint:`Numără parantezele deschise și pe cele închise. Pe cea care lipsește o pui la sfârșitul liniei.`,
+ sol:`print("Suma este:", int(input("a: ")) + int(input("b: ")))`,
+ note:`Fiecare paranteză deschisă ( trebuie închisă cu ). Aici print( rămăsese neînchisă.`},
+
+/* ===== PARTEA 6: fără să rulezi ===== */
+{t:"Comentariile programatorului obosit",mc:1,
+ d:`Fără să rulezi codul: ce mesaj apare efectiv pe ecran (fără textul întrebării din input) când utilizatorul introduce numărul 0?`,
+ code:'# print("Aici trebuia sa fie un joc cu grafica 3D extrem de complicat...")\n# print("Dar programatorul s-a dus sa se culce.")\n\nprint("Eroare fatală! Nivelul de cafea este:", int(input("Câte căni de cafea ai băut azi? ")))\n# print("Se reincarca sistemul...")',
+ opts:["Eroare fatală! Nivelul de cafea este: 0","Se reincarca sistemul...","Dar programatorul s-a dus sa se culce.","Nimic, programul dă eroare"],ans:0,
+ hint:`Caută singura linie care nu începe cu #.`,
+ sol:`Primele două rânduri și ultima linie sunt comentarii, deci sunt ignorate. Singurul mesaj afișat este: Eroare fatală! Nivelul de cafea este: 0`},
+{t:"Adunare de texte",mc:1,
+ d:`Utilizatorul tastează 4, apoi 5. Ce se afișează pe ecran?`,
+ code:'print(input("Primul: ") + input("Al doilea: "))',
+ opts:["9","45","4 5","Eroare"],ans:1,
+ hint:`Ce tip de valoare returnează input()?`,
+ sol:`input() returnează mereu text. „4” + „5” înseamnă lipirea textelor, deci rezultatul este 45. Pentru 9 ar fi trebuit int() la ambele input().`},
+{t:"Virgula din print()",mc:1,
+ d:`Ce se afișează pe ecran?`,
+ code:'print("Ana", "are", "mere")',
+ opts:["Anaaremere","Ana are mere","Ana, are, mere","Eroare"],ans:1,
+ hint:`Ce face print() cu argumentele separate prin virgulă?`,
+ sol:`print() pune câte un spațiu între argumente, deci se afișează: Ana are mere`},
+
+/* ===== PARTEA 7: haioase ===== */
+{t:"Detectorul de scuze pentru teme",
+ d:`Generează o scuză „oficială” pentru profesor.`,
+ req:[`Programul citește un motiv (un text).`,`Afișează: Stimate profesor, nu am putut face tema deoarece: [motiv] !`,`După motiv urmează un spațiu și apoi semnul ! (cu virgula între argumente se obține singur).`,`Tot programul are o singură linie de cod.`],
+ tests:[[["pisica a mâncat caietul"],"Stimate profesor, nu am putut face tema deoarece: pisica a mâncat caietul !"],[["câinele a fugit cu el"],"Stimate profesor, nu am putut face tema deoarece: câinele a fugit cu el !"]],one:1,
+ hint:`Trei argumente în print(): textul, input(...) și "!", separate prin virgulă.`,
+ sol:`print("Stimate profesor, nu am putut face tema deoarece:", input("De ce nu ți-ai făcut tema? "), "!")`},
+{t:"Generatorul de lătrat",
+ d:`Câinele latră de câte ori vrei tu.`,
+ req:[`Programul citește un număr întreg n.`,`Afișează cuvântul „Ham!” de n ori, cu câte un spațiu între ele, pe un singur rând.`,`Spațiul de la finalul rândului nu contează la verificare.`],
+ tests:[[["4"],"Ham! Ham! Ham! Ham!"],[["2"],"Ham! Ham!"]],
+ hint:`Înmulțește textul "Ham! " (cu spațiu la final) cu int(input(...)).`,
+ sol:`# Multiplicăm textul "Ham! " cu numărul citit de la tastatură\nprint("Ham! " * int(input("Câte lătrături vrei să auzi? ")))`},
+{t:"Strigătul lui Tarzan",
+ d:`Tarzan strigă cât de lung vrei tu.`,
+ req:[`Programul citește un număr întreg n.`,`Afișează litera A, apoi litera O repetată de n ori, apoi semnul !. Totul lipit, fără spații.`,`Tot programul are o singură linie de cod.`],
+ tests:[[["8"],"A"+R("O",8)+"!"],[["3"],"A"+R("O",3)+"!"]],one:1,
+ hint:`Alipește cu +: "A", apoi "O" înmulțit cu un număr, apoi "!".`,
+ sol:`print("A" + "O" * int(input("Cât de lung să fie strigătul? (introdu un număr): ")) + "!")`}
+];
+const SECT={0:"Partea 1 – print(): încălzire",5:"Partea 2 – Comentarii cu #",9:"Partea 3 – input() cu texte",14:"Partea 4 – input() cu numere și int()",21:"Partea 5 – Găsește și repară erorile",25:"Partea 6 – Fără să rulezi codul",28:"Partea 7 – Exerciții haioase 😄"};
+
+/* ---------- mini interpretor: print, input, int, str, float ---------- */
+class PyErr extends Error{constructor(k,m,l){super(m);this.kind=k;this.line=l}}
+class F{constructor(v){this.v=v}}
+const tn=x=>typeof x==='string'?'str':x instanceof F?'float':'int';
+const nv=x=>x instanceof F?x.v:x;
+function tokenize(line,ln){
+ const t=[];let i=0;
+ while(i<line.length){
+  const c=line[i];
+  if(/\s/.test(c)){i++;continue}
+  if(c==='#')break;
+  if(c==='"'||c==="'"){
+   let j=i+1,s='';
+   while(j<line.length&&line[j]!==c){
+    if(line[j]==='\\'&&j+1<line.length){const n=line[j+1];s+=n==='n'?'\n':n==='t'?'\t':n;j+=2}else s+=line[j++];
+   }
+   if(j>=line.length)throw new PyErr('SyntaxError','unterminated string literal (detected at line '+ln+')',ln);
+   t.push({k:'s',v:s});i=j+1;continue;
+  }
+  let m=line.slice(i).match(/^\d+(\.\d+)?/);
+  if(m){t.push({k:'n',v:Number(m[0]),f:!!m[1]});i+=m[0].length;continue}
+  m=line.slice(i).match(/^[\p{L}_][\p{L}\p{N}_]*/u);
+  if(m){t.push({k:'i',v:m[0]});i+=m[0].length;continue}
+  const two=line.substr(i,2);
+  if(two==='**'||two==='//'){t.push({k:'o',v:two});i+=2;continue}
+  if('+-*/%(),'.includes(c)){t.push({k:'o',v:c});i++;continue}
+  throw new PyErr('SyntaxError','invalid syntax',ln);
+ }
+ return t;
+}
+function parse(ts,ln){
+ let p=0;const bad=()=>new PyErr('SyntaxError','invalid syntax',ln);
+ const open=()=>new PyErr('SyntaxError',"'(' was never closed",ln);
+ const isO=v=>ts[p]&&ts[p].k==='o'&&ts[p].v===v;
+ function primary(){
+  const t=ts[p];if(!t)throw bad();
+  if(t.k==='s'){p++;return{t:'lit',v:t.v}}
+  if(t.k==='n'){p++;return{t:'lit',v:t.f?new F(t.v):t.v}}
+  if(t.k==='i'){
+   p++;
+   if(isO('(')){
+    p++;const args=[];
+    for(;;){
+     if(!ts[p])throw open();
+     if(isO(')')){p++;break}
+     args.push(expr());
+     if(!ts[p])throw open();
+     if(isO(',')){p++;continue}
+     if(isO(')')){p++;break}
+     throw new PyErr('SyntaxError','invalid syntax. Perhaps you forgot a comma?',ln);
+    }
+    return{t:'call',name:t.v,args};
+   }
+   return{t:'name',v:t.v};
+  }
+  if(isO('(')){p++;const e=expr();if(!ts[p])throw open();if(!isO(')'))throw bad();p++;return e}
+  throw bad();
+ }
+ function unary(){if(isO('-')){p++;return{t:'neg',e:unary()}}return power()}
+ function power(){const b=primary();if(isO('**')){p++;return{t:'bin',op:'**',l:b,r:unary()}}return b}
+ function term(){let l=unary();while(isO('*')||isO('/')||isO('//')||isO('%')){const op=ts[p++].v;l={t:'bin',op,l,r:unary()}}return l}
+ function expr(){let l=term();while(isO('+')||isO('-')){const op=ts[p++].v;l={t:'bin',op,l,r:term()}}return l}
+ if(ts[0].k==='i'&&ts[0].v==='print'&&ts[1]&&!(ts[1].k==='o'&&ts[1].v==='('))
+  throw new PyErr('SyntaxError',"Missing parentheses in call to 'print'. Did you mean print(...)?",ln);
+ const e=expr();
+ if(p<ts.length){if(isO(')'))throw new PyErr('SyntaxError',"unmatched ')'",ln);throw bad()}
+ return e;
+}
+function fmt(x){return typeof x==='string'?x:x===null?'None':x instanceof F?(Number.isInteger(x.v)?x.v.toFixed(1):String(x.v)):String(x)}
+function toInt(v,ln){
+ if(typeof v==='string'){if(!/^\s*[+-]?\d+\s*$/.test(v))throw new PyErr('ValueError',"invalid literal for int() with base 10: '"+v+"'",ln);return parseInt(v,10)}
+ return v instanceof F?Math.trunc(v.v):v;
+}
+function ev(n,ln,c){
+ switch(n.t){
+  case 'lit':return n.v;
+  case 'name':throw new PyErr('NameError',"name '"+n.v+"' is not defined",ln);
+  case 'neg':{const v=ev(n.e,ln,c);if(typeof v==='string')throw new PyErr('TypeError',"bad operand type for unary -: 'str'",ln);return v instanceof F?new F(-v.v):-v}
+  case 'call':{
+   if(!['print','input','int','str','float'].includes(n.name))throw new PyErr('NameError',"name '"+n.name+"' is not defined",ln);
+   const a=n.args.map(x=>ev(x,ln,c));
+   if(n.name==='print'){const s=a.map(fmt).join(' ');c.out.push(s);c.term+=s+'\n';c.prints++;return null}
+   if(n.name==='input'){
+    const pr=a.length?fmt(a[0]):'';
+    if(!c.inp.length)throw new PyErr('EOFError','EOF when reading a line',ln);
+    const v=c.inp.shift();c.term+=pr+v+'\n';return v;
+   }
+   if(a.length!==1)throw new PyErr('TypeError',n.name+'() takes exactly one argument',ln);
+   if(n.name==='int')return toInt(a[0],ln);
+   if(n.name==='str')return fmt(a[0]);
+   const f=typeof a[0]==='string'?Number(a[0]):nv(a[0]);
+   if(typeof a[0]==='string'&&(isNaN(f)||!a[0].trim()))throw new PyErr('ValueError',"could not convert string to float: '"+a[0]+"'",ln);
+   return new F(f);
+  }
+  case 'bin':{
+   const l=ev(n.l,ln,c),r=ev(n.r,ln,c),ls=typeof l==='string',rs=typeof r==='string';
+   if(ls||rs){
+    if(n.op==='+'){
+     if(ls&&rs)return l+r;
+     if(ls)throw new PyErr('TypeError','can only concatenate str (not "'+tn(r)+'") to str',ln);
+    }
+    if(n.op==='*'){
+     if(ls&&rs)throw new PyErr('TypeError',"can't multiply sequence by non-int of type 'str'",ln);
+     const o=ls?r:l;
+     if(o instanceof F)throw new PyErr('TypeError',"can't multiply sequence by non-int of type 'float'",ln);
+     return (ls?l:r).repeat(Math.max(0,o));
+    }
+    throw new PyErr('TypeError',"unsupported operand type(s) for "+n.op+": '"+tn(l)+"' and '"+tn(r)+"'",ln);
+   }
+   const a=nv(l),b=nv(r),fl=l instanceof F||r instanceof F;let v;
+   switch(n.op){
+    case '+':v=a+b;break;case '-':v=a-b;break;case '*':v=a*b;break;
+    case '**':v=Math.pow(a,b);break;
+    case '/':if(b===0)throw new PyErr('ZeroDivisionError','division by zero',ln);return new F(a/b);
+    case '//':if(b===0)throw new PyErr('ZeroDivisionError','integer division or modulo by zero',ln);v=Math.floor(a/b);break;
+    case '%':if(b===0)throw new PyErr('ZeroDivisionError','integer modulo by zero',ln);v=((a%b)+b)%b;break;
+   }
+   return fl?new F(v):v;
+  }
+ }
+}
+function runPy(src,inputs){
+ src=src.replace(/[“”]/g,'"').replace(/[‘’]/g,"'");
+ const lines=src.split('\n'),prog=[],c={out:[],term:'',prints:0,inp:[...inputs]};
+ try{
+  lines.forEach((raw,i)=>{
+   const ln=i+1,s=raw.replace(/\s+$/,'');
+   if(!s.trim()||s.trim().startsWith('#'))return;
+   if(/^\s/.test(s))throw new PyErr('IndentationError','unexpected indent',ln);
+   prog.push({ln,ast:parse(tokenize(s,ln),ln)});
+  });
+  try{prog.forEach(x=>ev(x.ast,x.ln,c))}catch(e){if(e instanceof PyErr)e.runtime=true;throw e}
+  return{out:c.out.join('\n'),term:c.term,prints:c.prints};
+ }catch(e){
+  if(!(e instanceof PyErr))throw e;
+  let m=e.runtime?'Traceback (most recent call last):\n  File "main.py", line '+e.line+', in <module>\n':'  File "main.py", line '+e.line+'\n    '+(lines[e.line-1]||'').trim()+'\n';
+  return{err:m+e.kind+': '+e.message,partial:c.term,eof:e.kind==='EOFError'};
+ }
+}
+
+/* ---------- interfața ---------- */
+const norm=s=>s.split('\n').map(x=>x.replace(/\s+$/,'')).join('\n').trim();
+const list=document.getElementById('list'),solved=new Set();
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function upd(){
+ document.getElementById('bar').style.width=(solved.size/EX.length*100)+'%';
+ document.getElementById('pt').textContent='Rezolvate: '+solved.size+' / '+EX.length+(solved.size===EX.length?' 🎉 Felicitări, ai terminat Fișa 2!':'');
+}
+const show=v=>v===''?'(Enter)':v;
+function grade(code,x){
+ for(const [inp,o] of x.tests){
+  const r=runPy(code,inp);
+  const want=norm([].concat(o)[0]);
+  const pre=inp.length?'Pentru intrările: '+inp.map(show).join(' , ')+'\n':'';
+  if(r.err)return pre+'programul a dat eroare ('+r.err.split('\n').pop()+').';
+  const got=norm(r.out);
+  if(![].concat(o).map(norm).includes(got))return pre+'ar trebui să se afișeze:\n'+want+'\n\ndar programul a afișat:\n'+(got||'(nimic)');
+ }
+ return null;
+}
+function chk(code,x){
+ for(const [re,msg,neg] of (x.must||[])){const hit=re.test(code);if(neg?hit:!hit)return msg}
+ return null;
+}
+function mkSol(x){
+ const s=el('div','sol');s.append(el('b',null,'✅ '+(x.mc?'Explicația':'Varianta corectă')));
+ if(x.mc)s.append(el('p',null,x.sol));else{s.append(el('pre','cd',x.sol));if(x.note)s.append(el('p',null,x.note))}
+ return s;
+}
+EX.forEach((x,i)=>{
+ if(SECT[i])list.append(el('h3',null,SECT[i]));
+ const card=el('section','card'),h=el('h2');
+ h.append('Exercițiul '+(i+1)+': '+x.t);const bd=el('span','badge','de rezolvat');h.append(bd);
+ card.append(h,el('p',null,x.d));
+ const fb=el('div','fb'),sol=mkSol(x),hint=el('div','hint','💡 '+x.hint);
+ const win=m=>{fb.className='fb ok';fb.textContent=m;sol.style.display='block';card.classList.add('done');bd.textContent='rezolvat ✓';solved.add(i);upd()};
+ const hb=el('button',null,'💡 Indiciu');hb.onclick=()=>{hint.style.display=hint.style.display==='block'?'none':'block'};
+ if(x.mc){
+  card.append(el('div','lbl','Cod'),el('pre','cd',x.code));
+  const row=el('div','row'),btns=[];
+  x.opts.forEach((o,k)=>{
+   const b=el('button','opt',o);btns.push(b);
+   b.onclick=()=>{
+    if(k===x.ans){btns.forEach(z=>z.disabled=true);b.style.borderColor='var(--ok)';win('🎉 Corect! Bravo!')}
+    else{fb.className='fb no';fb.textContent='❌ Nu chiar. Citește din nou codul, linie cu linie, și mai încearcă!'}
+   };
+   row.append(b);
+  });
+  row.append(hb);card.append(row,hint,fb,sol);
+ }else{
+  const t0=x.tests[0],hasInp=t0[0].length>0;
+  if(x.req){
+   card.append(el('div','lbl','Cerințe'));
+   const ul=el('ul','req');x.req.forEach(r=>ul.append(el('li',null,r)));card.append(ul);
+  }
+  card.append(el('div','lbl','Exemplu'));
+  const ex=el('div','ex'),c1=el('div');
+  if(hasInp){c1.append(el('div','lbl','Utilizatorul tastează'),el('pre','exp',t0[0].map(show).join('\n')));ex.append(c1)}
+  const c2=el('div');c2.append(el('div','lbl','Programul afișează (exact)'),el('pre','exp',norm([].concat(t0[1])[0])));ex.append(c2);
+  card.append(ex,el('div','note2','Programul tău este verificat și cu alte valori decât cele din exemplu.'));
+  card.append(el('div','lbl','Codul tău'));
+  const start=x.start||'# scrie codul aici\n';
+  const ta=el('textarea');ta.value=start;ta.rows=Math.max(3,start.split('\n').length+1);
+  ta.spellcheck=false;['autocapitalize','autocorrect','autocomplete'].forEach(a=>ta.setAttribute(a,'off'));
+  ta.setAttribute('aria-label','Cod exercițiul '+(i+1));card.append(ta);
+  const ti=el('textarea','inp');
+  if(hasInp){
+   card.append(el('div','lbl','Intrări (ce tastează utilizatorul – câte un rând pentru fiecare input())'));
+   ti.rows=Math.max(1,t0[0].length);ti.value=t0[0].join('\n');
+   ti.spellcheck=false;ti.setAttribute('autocorrect','off');ti.setAttribute('aria-label','Intrări exercițiul '+(i+1));card.append(ti);
+  }
+  const getInp=()=>hasInp?ti.value.split('\n'):[];
+  const row=el('div','row');
+  const run=el('button','run','▶ Rulează'),again=el('button',null,'✏️ Mai încerc'),rst=el('button',null,'↺ Resetează codul');
+  again.style.display='none';row.append(run,again,rst,hb);card.append(row,hint);
+  card.append(el('div','lbl','Ieșire (terminal)'));
+  const out=el('pre','out','');card.append(out,fb,sol);
+  const bad=m=>{fb.className='fb no';fb.textContent=m;again.style.display=''};
+  rst.onclick=()=>{ta.value=start;if(hasInp)ti.value=t0[0].join('\n');ta.readOnly=false;out.textContent='';out.className='out';fb.className='fb';sol.style.display='none';again.style.display='none';run.style.display='';ta.focus()};
+  again.onclick=()=>{fb.className='fb';again.style.display='none';ta.focus()};
+  run.onclick=()=>{
+   const code=ta.value,r=runPy(code,getInp());
+   if(r.err){
+    out.className='out err';out.textContent=(r.partial||'')+r.err;
+    bad(r.eof?'❌ Programul cere mai multe date decât ai pus la „Intrări”. Adaugă încă un rând acolo și rulează din nou.':'❌ Programul are o eroare. Citește mesajul din terminal (îți spune rândul cu problema) și încearcă din nou.');return;
+   }
+   out.className='out';out.textContent=r.term.trimEnd()||'(programul nu a afișat nimic)';
+   const g=grade(code,x);
+   if(g){bad('❌ Încă nu e corect.\n'+g);return}
+   const m=chk(code,x);
+   if(m){bad('⚠️ Rezultatul e bun, dar nu respecți o cerință: '+m);return}
+   if(x.one&&code.split('\n').filter(l=>l.trim()&&!l.trim().startsWith('#')).length!==1){bad('⚠️ Rezultatul e bun, dar exercițiul cere un program dintr-o singură linie de cod. Încearcă din nou!');return}
+   win('🎉 Corect! Programul a trecut toate testele. Mai jos vezi varianta de referință.');
+   ta.readOnly=true;again.style.display='none';run.style.display='none';
+  };
+ }
+ list.append(card);
+});
+upd();
+</script>
+</body>
+</html>
