@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ro"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sera lui Pixel – Curs Python</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#eef8e6;--card:#fff;--tx:#23361f;--mut:#5d7356;--g:#3f9b3f;--g2:#d8f0c8;--br:#8a5a2b;--ok:#1f8a3b;--no:#c0392b;--code:#1e2a1b;--codetx:#c9f5b8;--bub:#fff6d6}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14210f;--card:#1f3019;--tx:#e6f3dc;--mut:#9db692;--g:#6cc46c;--g2:#2b4a22;--br:#d9a066;--ok:#5fd17f;--no:#ff8a7a;--code:#0c1409;--bub:#3a3418}}
+:root[data-theme="dark"]{--bg:#14210f;--card:#1f3019;--tx:#e6f3dc;--mut:#9db692;--g2:#2b4a22;--g:#6cc46c;--br:#d9a066;--ok:#5fd17f;--no:#ff8a7a;--code:#0c1409;--bub:#3a3418}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+header{background:linear-gradient(135deg,#2f7d32,#7cc243);color:#fff;padding:14px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;box-shadow:0 2px 8px #0003}
+.hr{max-width:980px;margin:auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{font-size:1.25rem;margin:0;flex:1 1 220px}
+input.nm{padding:8px 12px;border-radius:20px;border:0;font:inherit;width:190px;max-width:100%}
+.sc{background:#fff3;border-radius:20px;padding:6px 14px;font-weight:700}
+.bar{height:8px;background:#fff4;border-radius:5px;flex:1 1 100%;overflow:hidden}.bar i{display:block;height:100%;background:#ffd84d;width:0;transition:width .4s}
+button{font:inherit;cursor:pointer}
+.dl{background:#ffd84d;color:#4a3300;border:0;border-radius:20px;padding:8px 14px;font-weight:700}
+main{max-width:980px;margin:auto;padding:14px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.tab{flex:0 0 auto;background:var(--card);color:var(--tx);border:2px solid var(--g2);border-radius:14px;padding:8px 12px;text-align:center}
+.tab small{display:block;color:var(--mut)}.tab.on{background:var(--g);color:#fff;border-color:var(--g)}.tab.on small{color:#fff}
+.pix{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+.pix .av{font-size:2.6rem}.pix .bub{background:var(--bub);border-radius:6px 18px 18px 18px;padding:10px 14px;border:2px dashed var(--br)}
+.box{background:var(--card);border-radius:18px;padding:14px 18px;margin:12px 0;border-left:6px solid var(--g);box-shadow:0 2px 6px #0001}
+.box h3,.card h3{margin:.2em 0 .4em;color:var(--br)}
+pre,textarea{font:14px/1.5 Consolas,"Courier New",monospace;background:var(--code);color:var(--codetx);border-radius:12px;padding:10px 12px;margin:8px 0;overflow-x:auto}
+code{background:var(--g2);padding:1px 6px;border-radius:6px}
+textarea{width:100%;min-height:150px;border:2px solid var(--g);resize:vertical;display:block}
+.card{background:var(--card);border-radius:18px;padding:14px 18px;margin:14px 0;border:2px solid var(--g2)}
+.pt{float:right;background:var(--g);color:#fff;border-radius:14px;padding:2px 12px;font-weight:700;font-size:.9rem}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--tx);border:2px solid var(--g2);border-radius:12px;padding:8px 12px;margin:6px 0}
+.opt:hover:not(:disabled){border-color:var(--g)}.opt.ok{background:var(--ok);color:#fff}.opt.no{background:var(--no);color:#fff}
+ul.cr{list-style:none;padding:0;margin:8px 0}ul.cr li{padding:3px 0}ul.cr li.ok{color:var(--ok);font-weight:700}ul.cr li.no{color:var(--no)}
+.go{background:var(--g);color:#fff;border:0;border-radius:14px;padding:9px 18px;font-weight:700}
+.res{margin-top:8px;font-weight:700}.note{color:var(--mut);font-size:.9rem}
+.nx{display:flex;justify-content:space-between;margin:18px 0}
+</style></head><body>
+<header><div class="hr"><h1>🌱🤖 Sera lui Pixel – Curs Python</h1>
+<input class="nm" id="nm" placeholder="Numele tău (Agro-Programator)" oninput="name=this.value">
+<span class="sc" id="sc"></span><button class="dl" onclick="dl()">⬇ Descarcă rezultatele</button>
+<div class="bar"><i id="pb"></i></div></div></header>
+<main><div class="tabs" id="tabs"></div><div id="v"></div></main>
+<script>
+const M=[
+{e:"🌱",t:"Salut, Pixel!",s:"print() și sintaxa",
+p:"Bună! Sunt Pixel, robotul grădinar. Tot ce vreau să vă spun afișez pe consolă cu print(). Învață-mă să vorbesc!",
+th:`<ul><li><code>print("text")</code> afișează un text – textul se scrie <b>între ghilimele</b>.</li><li>Numerele și calculele nu au ghilimele: <code>print(2 + 3)</code>.</li><li>Python face diferență între litere mari și mici: <code>Print</code> ❌, <code>print</code> ✔.</li><li>O instrucțiune pe fiecare linie, fără spații la începutul liniei.</li><li>Comentariile încep cu <code>#</code> și sunt ignorate de Python.</li></ul><pre># Pixel anunță starea serei
+print("Bine ai venit in sera!")
+print("Temperatura:", 22)</pre>`,
+k:[
+{q:"Care comandă este scrisă corect?",o:['Print("Salut")','print("Salut")','print(Salut)','print "Salut"'],a:1,p:5},
+{q:"Cu ce simbol începe un comentariu în Python?",o:["//","#","<!--","*"],a:1,p:5},
+{q:"Scrie <b>raportul zilnic al serei</b>: cel puțin 3 comenzi <code>print()</code> (numărul de plante, temperatura și mesajul „Toate plantele sunt sănătoase!”) și un comentariu.",ph:'# raport sera\nprint("Plante in sera:", 30)',
+cr:[["cel puțin 3 comenzi print()",/print\s*\(/,8,3],["un comentariu cu #",/#/,4],["mesajul final „sănătoase”",/s[aă]n[aă]toase/i,4],["text scris între ghilimele",/print\s*\(\s*["'][^"']+["']/,4]]}]},
+{e:"📋",t:"Algoritmi",s:"rețeta lui Pixel",
+p:"Un algoritm e ca o rețetă: pași clari, în ordine corectă. Dacă uzi înainte să verifici solul, risipești apa!",
+th:`<ul><li><b>Algoritm</b> = succesiune finită de pași clari, executați într-o anumită ordine.</li><li>Regulile de aur: <b>general</b> (merge pentru orice plantă asemănătoare), <b>finit</b> (se termină), <b>unic</b> (aceleași date → același rezultat).</li><li>Maximul a două numere: compari <code>a</code> cu <code>b</code>; dacă a ≥ b, max = a, altfel max = b.</li></ul><pre>PAS 1: Verifică senzorul de umiditate
+PAS 2: Dacă solul e uscat, pornește pompa
+PAS 3: Udă 10 secunde
+PAS 4: Oprește pompa
+PAS 5: Afișează "Udare finalizata!"</pre>`,
+k:[
+{q:"Care este primul pas logic în algoritmul de udare?",o:["Oprește pompa de apă","Verifică umiditatea solului","Afișează mesajul final","Udă 10 secunde"],a:1,p:5},
+{q:"„Pas 1: udă planta. Pas 2: revino la Pas 1.” Ce regulă de aur încalcă?",o:["General","Finit","Unic","Niciuna"],a:1,p:5},
+{q:"Care este un algoritm adevărat?",o:["„Ai grijă de plante cum crezi tu.”","„Pas 1: verifică solul. Pas 2: dacă e uscat, udă 10 s. Pas 3: Sfârșit.”","„Udă mereu, la infinit.”","„Fă ce vrei.”"],a:1,p:5},
+{q:"Scrie <b>algoritmul de plantare a morcovilor</b> în limba română: minimum 5 pași numerotați (Pas 1, Pas 2…), cu o condiție (<i>dacă</i>) și un pas final.",ph:"Pas 1: Verific solul...\nPas 2: ...",
+cr:[["minimum 5 pași numerotați",/(?:pas\s*)?\d+\s*[:.)]/i,8,5],["conține o condiție cu „dacă”",/dac[aă]/i,6],["are un pas final („Sfârșit”/„Gata”)",/sf[aâ]r[sș]it|final|gata/i,3],["vorbește despre semințe, sol sau apă",/s[aă]m[aâ]n[tț]|sol|ap[aă]|r[aă]s[aă]d/i,3]]},
+{q:"Scrie algoritmul prin care Pixel află <b>care dintre doi senzori</b> arată temperatura mai mare (citește, compară, afișează).",ph:"Pas 1: Citesc a și b...",
+cr:[["pas de citire a valorilor",/cite[sș]t/i,3],["pas de comparare",/compar|>=|≥|>|</i,4],["afișează maximul (mai mare)",/max|mai mare|afi[sș]/i,3]]}]},
+{e:"📦",t:"Variabile",s:"senzorii serei",
+p:"Sera mea are senzori! Valorile lor le țin în „cutii cu etichetă” numite variabile.",
+th:`<ul><li>Variabila are <b>4 elemente</b>: nume (identificator), tip, valoare, adresă în memorie.</li><li>Se creează prin atribuire: <code>nume = valoare</code>. Valoarea veche se pierde!</li><li>Numele: litere, cifre și <code>_</code>; <b>nu</b> începe cu cifră, nu are spații sau <code>-</code>.</li><li>Alege nume clare: <code>nr_rasaduri</code>, nu <code>x</code>.</li></ul><pre>nume_planta = "rosii"
+nr_rasaduri = 12
+inaltime_cm = 18.5
+a_rasarit = True
+inaltime_cm = inaltime_cm + 2.5
+print(nume_planta, inaltime_cm)</pre>`,
+k:[
+{q:"Care este un nume de variabilă valid?",o:["2rosii","nr_rasaduri","tip-sol","apa zilnica"],a:1,p:5},
+{q:"<code>umiditate = 40</code> apoi <code>umiditate = umiditate + 10</code>. Ce valoare are umiditate?",o:["40","10","50","400"],a:2,p:5},
+{q:"<code>x = 5</code>, <code>y = x + 2</code>, <code>x = y</code>. Cât este x la final?",o:["5","2","7","14"],a:2,p:5},
+{q:"<b>Fișa răsadului</b>: creează 4 variabile – numele plantei (text), numărul de răsaduri (întreg), înălțimea în cm (zecimal) și dacă a răsărit (True/False) – apoi afișează-le cu <code>print()</code>.",ph:'nume_planta = "rosii"\n...',
+cr:[["4 atribuiri (variabile)",/^\s*[A-Za-z_]\w*\s*=/m,8,4],["o variabilă text (între ghilimele)",/=\s*["']/,4],["o variabilă zecimală (ex. 18.5)",/=\s*\d+\.\d+/,4],["o variabilă True/False",/=\s*(True|False)/,4],["afișare cu print(nume_variabilă)",/print\s*\(\s*[A-Za-z_]\w*/,5]]},
+{q:"Planta <code>inaltime = 12</code> cm crește cu 5 cm într-o săptămână. Scrie atribuirea care actualizează înălțimea și afișeaz-o.",ph:"inaltime = 12\n...",
+cr:[["atribuire de forma inaltime = inaltime + 5",/(\w+)\s*=\s*\1\s*\+/,6],["afișare cu print()",/print\s*\(/,4]]}]},
+{e:"🔒",t:"Constante",s:"valori care nu se schimbă",
+p:"Unele valori din seră nu se schimbă niciodată: câte zile are săptămâna, distanța dintre roșii… Le numim constante!",
+th:`<ul><li><b>Constanta</b> = o valoare care <b>nu se modifică</b> pe parcursul programului.</li><li>În Python, prin convenție, numele constantelor se scriu cu <b>MAJUSCULE</b>: <code>ZILE_SAPTAMANA = 7</code>.</li><li>Le folosim în formule, ca să schimbăm valoarea într-un singur loc.</li><li>Variabilă = se schimbă (temperatura de azi). Constantă = rămâne la fel (temperatura minimă acceptată).</li></ul><pre># constante
+DISTANTA_ROSII_CM = 50
+TEMP_MIN = 15
+# variabila
+nr_rosii = 8
+print("Spatiu necesar:", nr_rosii * DISTANTA_ROSII_CM)</pre>`,
+k:[
+{q:"Care valoare este potrivită ca <b>constantă</b> în sera ta?",o:["Temperatura de azi","Numărul de roșii coapte azi","Numărul de zile dintr-o săptămână (7)","Umiditatea solului acum"],a:2,p:5},
+{q:"Cum se scriu, prin convenție, numele constantelor în Python?",o:["cu litere mici","cu MAJUSCULE","cu cifre","cu spații"],a:1,p:5},
+{q:"Care dintre acestea este o <b>variabilă</b>, nu o constantă?",o:["PRET_SAMANTA = 3","LATIME_STRAT_M = 2","nr_rosii_coapte = 5","ZILE_SAPTAMANA = 7"],a:2,p:5},
+{q:"<b>Planul straturilor</b>: definește constantele <code>LUNGIME_STRAT</code> = 10, <code>LATIME_STRAT</code> = 2 și <code>PRET_SAMANTA</code> = 3, o variabilă <code>nr_straturi</code> = 4, apoi calculează și afișează suprafața totală și costul semințelor (o pungă pe strat).",ph:"# constante\nLUNGIME_STRAT = 10\n...",
+cr:[["cel puțin 3 constante cu MAJUSCULE",/^\s*[A-Z][A-Z0-9_]*\s*=/m,9,3],["o variabilă cu litere mici",/^\s*[a-z_][a-z0-9_]*\s*=\s*\d/m,4],["folosește înmulțirea (*)",/\*/,5],["afișează rezultatele cu print()",/print\s*\(/,4],["un comentariu #",/#/,3]]}]},
+{e:"⌨️",t:"input() și tipuri de date",s:"Pixel te ascultă",
+p:"Uneori vă întreb ceva cu input(). Atenție: tot ce scrieți vine ca text!",
+th:`<ul><li>4 tipuri: <code>int</code> (întreg: 12), <code>float</code> (zecimal: 21.5), <code>str</code> (text: "roșii"), <code>bool</code> (True / False).</li><li><code>type(x)</code> arată tipul variabilei x.</li><li><code>input()</code> returnează <b>întotdeauna text (str)</b>. Pentru calcule: <code>int()</code> sau <code>float()</code>.</li></ul><pre>nr = int(input("Cate randuri de rosii? "))
+print("Ai nevoie de", nr * 6, "rasaduri")
+print(type(nr))</pre>`,
+k:[
+{q:"Ce tip are valoarea <code>21.5</code>?",o:["int","float","str","bool"],a:1,p:5},
+{q:"Ce tip de date returnează întotdeauna <code>input()</code>?",o:["int","float","str","bool"],a:2,p:5},
+{q:"Ce tip are <code>lumina_aprinsa = True</code>?",o:["str","int","float","bool"],a:3,p:5},
+{q:"<b>Câte răsaduri?</b> Scrie un program care întreabă (cu <code>input()</code>) câte rânduri de roșii sunt, transformă răspunsul în număr cu <code>int()</code>, calculează câte răsaduri sunt necesare (6 pe rând) și afișează rezultatul.",ph:'randuri = int(input("..."))',
+cr:[["folosește input()",/input\s*\(/,5],["transformă în număr cu int() sau float()",/int\s*\(|float\s*\(/,5],["face un calcul (*, +, -)",/[*+\-\/]/,5],["afișează rezultatul cu print()",/print\s*\(/,5]]}]},
+{e:"🧠",t:"Propoziții logice",s:"deciziile lui Pixel",
+p:"Senzorii îmi dau propoziții logice: ori adevărate, ori false. Din ele decid când ud plantele!",
+th:`<ul><li><b>Propoziție logică</b> = enunț care e sigur adevărat (A) sau fals (F).</li><li><b>NOT</b> inversează valoarea. <b>AND</b> e adevărat doar dacă ambele sunt adevărate. <b>OR</b> e adevărat dacă măcar una e adevărată.</li><li>În Python: <code>not</code>, <code>and</code>, <code>or</code>.</li></ul><pre>temperatura = 28
+umiditate = 18
+if temperatura > 25 and umiditate < 20:
+    print("Pixel porneste pompa!")</pre><table class="note"><tr><td>A AND F = F</td><td>A OR F = A</td><td>NOT A = F</td></tr></table>`,
+k:[
+{q:"p este adevărată, q este falsă. Cât este <code>p AND q</code>?",o:["Adevărat","Fals"],a:1,p:5},
+{q:"p este adevărată, q este falsă. Cât este <code>p OR q</code>?",o:["Adevărat","Fals"],a:0,p:5},
+{q:"Cât este <code>NOT (12 &gt; 7)</code>?",o:["Adevărat","Fals"],a:1,p:5},
+{q:"Pixel udă dacă umiditatea e sub 20% ȘI nu plouă. Ce expresie e corectă?",o:["umiditate < 20 or ploua","umiditate < 20 and not ploua","umiditate > 20 and ploua","not umiditate < 20"],a:1,p:5},
+{q:"<b>Decizia lui Pixel</b>: creează variabilele <code>temperatura</code> și <code>umiditate</code>, apoi scrie un <code>if</code> cu <code>and</code> (sau <code>or</code>) care afișează „Pixel udă planta!” când e cald și solul uscat.",ph:"temperatura = 27\numiditate = 15\nif ...",
+cr:[["două variabile cu valori",/^\s*[A-Za-z_]\w*\s*=\s*\d/m,4,2],["operator logic and / or / not",/\b(and|or|not)\b/,6],["structura if cu două puncte „:”",/if\s.*:/,5],["afișează un mesaj cu print()",/print\s*\(/,5]]}]},
+{e:"🏆",t:"Proiect final",s:"Sera mea inteligentă",
+p:"Ați învățat destul cât să mă ajutați cu adevărat! Construiți mini-programul unei sere inteligente.",
+th:`<ul><li>Programul trebuie să conțină: variabile de tipuri diferite, o constantă, un <code>input()</code>, o decizie cu <code>and/or/not</code>, minimum 3 <code>print()</code>, un comentariu și mesajul final „Sera este gata pentru azi!”.</li><li>Testează-ți codul pe <b>programiz.ro/python</b>, apoi copiază-l aici.</li></ul>`,
+k:[
+{q:"<b>Sera mea inteligentă</b> – scrie programul complet.",ph:"# Sera mea inteligenta\nTEMP_MIN = 15\n...",
+cr:[["cel puțin 3 variabile/constante",/^\s*[A-Za-z_]\w*\s*=/m,4,3],["o constantă cu MAJUSCULE",/^\s*[A-Z][A-Z0-9_]*\s*=/m,4],["folosește input()",/input\s*\(/,5],["decizie cu if și and/or/not",/if[\s\S]*\b(and|or|not)\b/,6],["minimum 3 comenzi print()",/print\s*\(/,4,3],["un comentariu #",/#/,3],["mesajul final „gata”",/gata/i,4]]}]}
+];
+const EX=[
+[["Salutul serei",`print("Bine ai venit in sera lui Pixel!")`,"Bine ai venit in sera lui Pixel!"],
+["Text și număr",`print("Rosii plantate:", 24)`,"Rosii plantate: 24"],
+["Calcul fără ghilimele",`print("Rasaduri in 4 randuri:", 4 * 6)`,"Rasaduri in 4 randuri: 24"],
+["Greșeală frecventă",`Print("Salut")   # gresit: P mare\nprint("Salut")   # corect`,"Prima linie dă eroare (Python nu cunoaște „Print”). A doua afișează: Salut"],
+["Comentariu util",`# Afisam temperatura ca sa stim daca aerisim sera\nprint(21)`,"21  (comentariul nu se afișează)"]],
+[["Algoritm de udare a roșiilor",`Pas 1: Verific senzorul de umiditate\nPas 2: Daca solul e uscat, pornesc pompa\nPas 3: Ud 10 secunde\nPas 4: Opresc pompa\nPas 5: Afisez "Udare finalizata!"`,"Dacă solul nu e uscat, Pixel nu pornește pompa. Ordinea pașilor contează!"],
+["Algoritm de aerisire",`Pas 1: Citesc temperatura\nPas 2: Daca temperatura > 28, pornesc ventilatorul\nPas 3: Altfel, las ventilatorul oprit\nPas 4: Afisez starea serei\nPas 5: Sfarsit`,"Are început, sfârșit și o decizie clară (dacă… altfel…)."],
+["Maximul a două temperaturi",`a = 24, b = 19\nPas 1: Compar a cu b\nPas 2: 24 >= 19 este adevarat\nPas 3: max = 24, min = 19`,"Rezultat: max = 24, min = 19"],
+["Suma apei folosite (3 litri/zi, 5 zile)",`S = 0, k = 1\nk=1: S = 0+3 = 3\nk=2: S = 6\nk=3: S = 9\nk=4: S = 12\nk=5: S = 15`,"Pixel a folosit 15 litri."],
+["Un algoritm GREȘIT",`Pas 1: Ud planta\nPas 2: Revin la Pas 1`,"Nu se oprește niciodată → încalcă regula „finit”. Plantele s-ar îneca! 🌊"]],
+[["Fișa tomatei",`nume_planta = "rosii"\nnr_rasaduri = 12\ninaltime_cm = 18.5\na_rasarit = True\nprint(nume_planta, nr_rasaduri, inaltime_cm, a_rasarit)`,"rosii 12 18.5 True"],
+["Atribuirea schimbă valoarea",`umiditate = 40\numiditate = umiditate + 10\numiditate = umiditate - 5\nprint(umiditate)`,"45  (40 → 50 → 45; valorile vechi se pierd)"],
+["Copierea între variabile",`x = 1\ny = 7\nx = y\nx = x + y + 1\nprint(x)`,"15  (x devine 7, apoi 7 + 7 + 1)"],
+["Nume greșite → nume corecte",`2rosii  → rosii_2\ntip leguma → tip_leguma\napa-zilnica → apa_zilnica`,"Nu începe cu cifră, nu are spații și nici „-”."],
+["Cele 4 elemente ale variabilei cantitate_apa = 2.5",`nume: cantitate_apa\ntip: real (float)\nvaloare: 2.5\nadresa: locul din memorie unde stă 2.5`,"Un nume, un tip, o valoare, o adresă."]],
+[["Constante la plantare",`DISTANTA_ROSII_CM = 50\nnr_rosii = 8\nprint("Spatiu necesar:", nr_rosii * DISTANTA_ROSII_CM)`,"Spatiu necesar: 400"],
+["Costul semințelor",`PRET_SAMANTA = 3\nnr_pungi = 5\nprint(nr_pungi * PRET_SAMANTA, "lei")`,"15 lei"],
+["Suprafața stratului",`LUNGIME_STRAT = 10\nLATIME_STRAT = 2\nnr_straturi = 4\nprint(LUNGIME_STRAT * LATIME_STRAT * nr_straturi)`,"80  (20 mp pe strat × 4 straturi)"],
+["De ce folosim constante?",`PRET_SAMANTA = 3   # daca pretul devine 4,\n                   # schimbam doar aceasta linie`,"Valoarea se modifică într-un singur loc, nu în tot programul."],
+["Constantă și variabilă împreună",`TEMP_MIN = 15\ntemperatura_azi = 18\nprint("Grade peste minim:", temperatura_azi - TEMP_MIN)`,"Grade peste minim: 3  (TEMP_MIN rămâne 15, temperatura_azi se poate schimba)"]],
+[["Programul răsadurilor",`randuri = int(input("Cate randuri de rosii? "))\nprint("Ai nevoie de", randuri * 6, "rasaduri")`,"Dacă scrii 5 → Ai nevoie de 30 rasaduri"],
+["Tipurile de date",`print(type(12))\nprint(type(21.5))\nprint(type("rosii"))\nprint(type(True))`,"<class 'int'>  <class 'float'>  <class 'str'>  <class 'bool'>"],
+["Greșeală: input() dă text",`nr = input("Cate plante? ")\nprint(nr + 5)           # EROARE\nnr = int(input("Cate plante? "))\nprint(nr + 5)           # corect`,"Fără int(), Python nu poate aduna text cu număr. Cu int(), la 20 plante → 25."],
+["Număr zecimal cu float()",`temp = float(input("Temperatura? "))\nprint(temp + 1.5)`,"Dacă scrii 20.5 → 22.0"],
+["Lipirea textelor",`print("Sera " + "lui Pixel")`,"Sera lui Pixel  (dar \"Sera\" + 5 dă eroare)"]],
+[["AND – cald ȘI sol uscat",`temperatura = 28\numiditate = 18\nprint(temperatura > 25 and umiditate < 20)`,"True  (A AND A = A) → Pixel pornește pompa"],
+["AND vs OR",`temperatura = 22\numiditate = 18\nprint(temperatura > 25 and umiditate < 20)\nprint(temperatura > 25 or umiditate < 20)`,"False (A and F = F)  și  True (F or A = A)"],
+["NOT – inversează",`ploua = False\nprint(not ploua)`,"True"],
+["Lumina serei cu OR",`innorat = False\nseara = True\nif innorat or seara:\n    print("Aprind becurile!")`,"Aprind becurile!  (F or A = A)"],
+["Decizie completă",`umiditate = 15\nploua = False\nif umiditate < 20 and not ploua:\n    print("Pixel uda plantele!")`,"Pixel uda plantele!  (Dacă ploua = True, nu se afișează nimic.)"]],
+[["Model de seră inteligentă",`# Sera mea inteligenta\nTEMP_MIN = 15\nnume_sera = "Sera lui Pixel"\ntemp = int(input("Temperatura azi? "))\nplouat = False\nprint("Raport:", nume_sera)\nprint("Temperatura:", temp)\nif temp < TEMP_MIN and not plouat:\n    print("Pornesc incalzirea!")\nprint("Sera este gata pentru azi!")`,"La 12 grade: Raport: Sera lui Pixel / Temperatura: 12 / Pornesc incalzirea! / Sera este gata pentru azi!"]]];
+function exs(i){return `<div class="box"><h3>🔍 Exemple rezolvate</h3>`+EX[i].map((x,j)=>`<p><b>${j+1}. ${x[0]}</b></p><pre>${esc(x[1])}</pre><div class="note">▶ ${esc(x[2])}</div>`).join("")+`</div>`}
+let cur=0,S={},A={},name="";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mx=t=>t.cr?t.cr.reduce((a,c)=>a+c[2],0):t.p;
+const mm=m=>M[m].k.reduce((a,t)=>a+mx(t),0);
+const got=m=>M[m].k.reduce((a,t,i)=>a+((S[m+"_"+i]||{}).pts||0),0);
+const TOT=M.reduce((a,_,m)=>a+mm(m),0);
+const tot=()=>M.reduce((a,_,m)=>a+got(m),0);
+function grade(p){return p>=.9?"Foarte bine":p>=.7?"Bine":p>=.5?"Suficient":"Insuficient"}
+function hdr(){const t=tot();document.getElementById("sc").textContent="⭐ "+t+" / "+TOT+" p · "+grade(t/TOT);document.getElementById("pb").style.width=(100*t/TOT)+"%";
+document.getElementById("tabs").innerHTML=M.map((m,i)=>`<button class="tab ${i==cur?"on":""}" onclick="go(${i})">${m.e} ${i+1}. ${m.t}<small>${got(i)}/${mm(i)} p</small></button>`).join("")}
+function card(m,i){const t=M[m].k[i],k=m+"_"+i,s=S[k];let h=`<span class="pt">${mx(t)} p</span><h3>Sarcina ${i+1}${t.cr?" · cod":""}</h3><p>${t.q}</p>`;
+if(!t.cr){h+=t.o.map((o,j)=>`<button class="opt ${s?(j==t.a?"ok":(s.a==j?"no":"")):""}" ${s?"disabled":""} onclick="pick(${m},${i},${j})">${esc(o)}</button>`).join("");
+if(s)h+=`<div class="res">${s.pts?"✔ Corect! +"+s.pts+" p":"✘ Răspunsul corect: "+esc(t.o[t.a])}</div>`}
+else{h+=`<div class="note">Ce trebuie să conțină codul tău:</div><ul class="cr">`+t.cr.map((c,j)=>`<li class="${s?(s.ok[j]?"ok":"no"):""}">${s?(s.ok[j]?"✔":"✘"):"☐"} ${c[0]} <i>(${c[2]} p)</i></li>`).join("")+`</ul><textarea spellcheck="false" placeholder="${esc(t.ph)}" oninput="A['${k}']=this.value">${esc(A[k]||"")}</textarea><button class="go" onclick="chk(${m},${i})">✅ Verifică codul</button>`+(s?`<div class="res">Ai obținut ${s.pts} din ${mx(t)} p. ${s.pts<mx(t)?"Poți corecta codul și verifica din nou!":"Felicitări! 🎉"}</div>`:"")}
+return h}
+function paint(m,i){document.getElementById("c"+i).innerHTML=card(m,i);hdr()}
+function pick(m,i,j){const k=m+"_"+i;if(S[k])return;const t=M[m].k[i];S[k]={a:j,pts:j==t.a?t.p:0};paint(m,i)}
+function chk(m,i){const k=m+"_"+i,t=M[m].k[i],c=A[k]||"";const ok=t.cr.map(r=>(c.match(new RegExp(r[1].source,"gim"))||[]).length>=(r[3]||1));
+S[k]={ok,pts:t.cr.reduce((a,r,j)=>a+(ok[j]?r[2]:0),0)};paint(m,i)}
+function go(i){cur=i;show();scrollTo(0,0)}
+function show(){const m=M[cur];document.getElementById("v").innerHTML=`<div class="pix"><div class="av">🤖</div><div class="bub"><b>Pixel spune:</b><br>${m.p}</div></div><div class="box"><h3>${m.e} Lecția ${cur+1} – ${m.t} (${m.s})</h3>${m.th}<div class="note">💻 Poți testa codul și online, pe programiz.ro/python.</div></div>`+exs(cur)+m.k.map((_,i)=>`<div class="card" id="c${i}">${card(cur,i)}</div>`).join("")+`<div class="nx"><button class="go" ${cur?"":"disabled"} onclick="go(${cur-1})">← Înapoi</button><button class="go" ${cur<M.length-1?"":"disabled"} onclick="go(${cur+1})">Lecția următoare →</button></div>`;hdr()}
+function rep(){const t=tot();let h=`<meta charset="utf-8"><body style="font-family:sans-serif;max-width:800px;margin:auto"><h1>🌱 Sera lui Pixel – Rezultate</h1><p><b>Elev:</b> ${esc(name||"—")} · <b>Data:</b> ${new Date().toLocaleDateString("ro-RO")}</p><h2>Total: ${t} / ${TOT} p – ${grade(t/TOT)}</h2>`;
+M.forEach((m,mi)=>{h+=`<h3>${m.e} Lecția ${mi+1}: ${m.t} – ${got(mi)}/${mm(mi)} p</h3>`;m.k.forEach((x,i)=>{const k=mi+"_"+i,s=S[k];h+=`<p>Sarcina ${i+1}: ${s?s.pts:0}/${mx(x)} p`+(x.cr&&A[k]?`</p><pre style="background:#eee;padding:8px">${esc(A[k])}</pre>`:`</p>`)})});return h+"</body>"}
+async function dl(){const d=window.claude&&await claude.use("downloads");if(!d){alert("Descărcarea nu este disponibilă în această fereastră.");return}
+try{await d.save({filename:"rezultate_"+(name||"elev").replace(/\W+/g,"_")+".html",data:new Blob([rep()],{type:"text/html"})})}catch(e){}}
+show();
+</script></body></html>
